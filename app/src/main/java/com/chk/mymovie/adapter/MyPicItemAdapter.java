@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chk.mymovie.R;
 import com.chk.mymovie.bean.Pic;
 
@@ -45,9 +46,13 @@ public class MyPicItemAdapter extends ArrayAdapter<Pic>{
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
         }
+        if(pic.getPicAddress() != null && !pic.getPicAddress().equals("")) {
+            Glide.with(getContext()).load("http://10.0.2.2:8080/MyMovieService/PicServlet?path="+pic.getPicAddress())
+                    .into(viewHolder.picImage);
+//            viewHolder.picImage.setImageResource(pic.getPicImage());
+            viewHolder.picText.setText(pic.getPicName());
+        }
 
-        viewHolder.picImage.setImageResource(pic.getPicImage());
-        viewHolder.picText.setText(pic.getPicText());
         return view;
     }
 

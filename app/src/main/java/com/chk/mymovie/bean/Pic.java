@@ -8,6 +8,24 @@ public class Pic {
 
     int picImage;
     String picText;
+    String picName;
+    String picAddress;
+
+    public String getPicAddress() {
+        return picAddress;
+    }
+
+    public void setPicAddress(String picAddress) {
+        this.picAddress = picAddress;
+    }
+
+    public String getPicName() {
+        return picName;
+    }
+
+    public void setPicName(String picName) {
+        this.picName = picName;
+    }
 
     public int getPicImage() {
         return picImage;
