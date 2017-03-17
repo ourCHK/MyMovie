@@ -8,7 +8,9 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -33,12 +35,14 @@ public class TestGsonActivity extends AppCompatActivity {
     public static String TAG = "TestGsonActivity";
     public static final int PARSE_COMPLETE = 2;
     public PicInfo picInfo;
-    ImageView picOne;
-    ImageView picTwo;
     ArrayList<Pic> picList;
     ArrayList<PicInfo> picInfoList;
+    Button lastPage;
+    Button nextPage;
     ListView picListView;
     ArrayAdapter picAdapter;
+    int from = 0;   //开始查询的页数
+    int to = 10;    //终止查询的页数
 
     String picListJson;
     Handler handler;
@@ -49,13 +53,36 @@ public class TestGsonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_gson);
         init();
-        getJson();
+        getJson(from,to);
     }
 
 
     public void init() {
         picList = new ArrayList<>();
         picInfoList = new ArrayList<>();
+
+        lastPage = (Button) findViewById(R.id.lastPage);
+        nextPage = (Button) findViewById(R.id.nextPage);
+
+        lastPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picList.clear();
+                from -= 10;
+                to -= 10;
+                getJson(from,to);
+            }
+        });
+
+        nextPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picList.clear();
+                from += 10;
+                to += 10;
+                getJson(from,to);
+            }
+        });
 
         picListView = (ListView) findViewById(R.id.picList);
         picAdapter = new MyPicItemAdapter(TestGsonActivity.this,R.layout.layout_picitem,picList);
@@ -70,10 +97,10 @@ public class TestGsonActivity extends AppCompatActivity {
                         byte[] Picture_bt = (byte[]) msg.obj;
                         Bitmap bitmap = BitmapFactory.decodeByteArray(Picture_bt, 0, Picture_bt.length);
                         //通过imageview，设置图片
-                        picOne.setImageBitmap(bitmap);
                         break;
                     case 2:
                         picAdapter.notifyDataSetChanged();
+                        picListView.setSelection(0);
                         break;
                 }
              }
@@ -82,9 +109,14 @@ public class TestGsonActivity extends AppCompatActivity {
     }
 
 
-    public void getJson() {
+    /**
+     *  查询指定页面的数据
+     * @param from 起始的页数
+     * @param to 终止的页数
+     */
+    public void getJson(int from,int to) {
                 OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder().url("http://10.0.2.2:8080/MyMovieService/GetJsonServlet?from=0&to=10").build();
+        Request request = new Request.Builder().url("http://10.0.2.2:8080/MyMovieService/GetJsonServlet?from=" + from + "&to=" + to).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
