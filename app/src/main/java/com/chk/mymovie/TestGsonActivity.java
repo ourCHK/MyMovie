@@ -8,12 +8,17 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 
+import com.chk.mymovie.adapter.MyPicItemAdapter;
+import com.chk.mymovie.bean.Pic;
 import com.chk.mymovie.bean.PicInfo;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -27,6 +32,10 @@ public class TestGsonActivity extends AppCompatActivity {
     public PicInfo picInfo;
     ImageView picOne;
     ImageView picTwo;
+    ArrayList<Pic> picList;
+    ListView picListView;
+    ArrayAdapter picAdapter;
+
     String picJson;
     Handler handler;
     byte[] bytes;
@@ -35,6 +44,7 @@ public class TestGsonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_gson);
+        init();
 
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url("http://10.0.2.2:8080/MyMovieService/PicServlet").build();
@@ -67,6 +77,19 @@ public class TestGsonActivity extends AppCompatActivity {
     public void init() {
         picOne = (ImageView) findViewById(R.id.picOne);
         picTwo = (ImageView) findViewById(R.id.picTwo);
+        picList = new ArrayList<>();
+        for(int i=0; i<10; i++) {
+            Pic pic = new Pic();
+            pic.setPicImage(R.mipmap.ic_launcher);
+            pic.setPicText("图片："+i);
+            picList.add(pic);
+        }
+
+
+        picListView = (ListView) findViewById(R.id.picList);
+        picAdapter = new MyPicItemAdapter(TestGsonActivity.this,R.layout.layout_picitem,picList);
+
+
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
