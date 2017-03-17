@@ -21,12 +21,10 @@ import java.util.List;
 public class MyPicItemAdapter extends ArrayAdapter<Pic>{
 
     int resourceId;
-    List<Pic> picList;
 
     public MyPicItemAdapter(Context context, int resource, List<Pic> objects) {
         super(context, resource, objects);
         resourceId = resource;
-        picList = objects;
     }
 
     @NonNull
@@ -34,12 +32,28 @@ public class MyPicItemAdapter extends ArrayAdapter<Pic>{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         Pic pic = getItem(position);
-        View view = LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
-        ImageView picImage = (ImageView) view.findViewById(R.id.picImage);
-        TextView picText = (TextView) view.findViewById(R.id.picText);
-        picImage.setImageResource(pic.getPicImage());
-        picText.setText(pic.getPicText());
+        View view;
+        ViewHolder viewHolder;
+
+        if(convertView == null) {
+            view = LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
+            viewHolder = new ViewHolder();
+            viewHolder.picImage = (ImageView) view.findViewById(R.id.picImage);
+            viewHolder.picText = (TextView) view.findViewById(R.id.picText);
+            view.setTag(viewHolder);
+        } else {
+            view = convertView;
+            viewHolder = (ViewHolder) view.getTag();
+        }
+
+        viewHolder.picImage.setImageResource(pic.getPicImage());
+        viewHolder.picText.setText(pic.getPicText());
         return view;
+    }
+
+    class ViewHolder {
+        ImageView picImage;
+        TextView picText;
     }
 
 }
