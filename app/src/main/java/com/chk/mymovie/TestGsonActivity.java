@@ -46,39 +46,37 @@ public class TestGsonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test_gson);
         init();
 
-        OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder().url("http://10.0.2.2:8080/MyMovieService/PicServlet").build();
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-//                picJson = response.body().string();
-//                picInfo = parseJson(picJson);
-//                Log.e(TAG,picJson);
-//                Log.e(TAG,picInfo.getPicName());
-//                Log.e(TAG,picInfo.getPicAddress());
-
-                byte[] Picture_bt = response.body().bytes();
-                Message msg = new Message();
-                msg.obj = Picture_bt;
-                msg.what = 1;
-                handler.sendMessage(msg);
-
-
-            }
-        });
+//        OkHttpClient okHttpClient = new OkHttpClient();
+//        Request request = new Request.Builder().url("http://10.0.2.2:8080/MyMovieService/PicServlet").build();
+//        okHttpClient.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+////                picJson = response.body().string();
+////                picInfo = parseJson(picJson);
+////                Log.e(TAG,picJson);
+////                Log.e(TAG,picInfo.getPicName());
+////                Log.e(TAG,picInfo.getPicAddress());
+//
+//                byte[] Picture_bt = response.body().bytes();
+//                Message msg = new Message();
+//                msg.obj = Picture_bt;
+//                msg.what = 1;
+//                handler.sendMessage(msg);
+//
+//
+//            }
+//        });
 
     }
 
     public void init() {
-        picOne = (ImageView) findViewById(R.id.picOne);
-        picTwo = (ImageView) findViewById(R.id.picTwo);
         picList = new ArrayList<>();
-        for(int i=0; i<10; i++) {
+        for(int i=0; i<20; i++) {
             Pic pic = new Pic();
             pic.setPicImage(R.mipmap.ic_launcher);
             pic.setPicText("图片："+i);
@@ -88,6 +86,7 @@ public class TestGsonActivity extends AppCompatActivity {
 
         picListView = (ListView) findViewById(R.id.picList);
         picAdapter = new MyPicItemAdapter(TestGsonActivity.this,R.layout.layout_picitem,picList);
+        picListView.setAdapter(picAdapter);
 
 
         handler = new Handler() {
