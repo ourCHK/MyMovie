@@ -28,7 +28,6 @@ public class TestGsonActivity extends AppCompatActivity {
     ImageView picOne;
     ImageView picTwo;
     String picJson;
-
     Handler handler;
     byte[] bytes;
 
@@ -36,7 +35,6 @@ public class TestGsonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_gson);
-        init();
 
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url("http://10.0.2.2:8080/MyMovieService/PicServlet").build();
