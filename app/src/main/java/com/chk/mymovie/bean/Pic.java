@@ -9,14 +9,14 @@ public class Pic {
     int picImage;
     String picText;
     String picName;
-    String picAddress;
+    String picPath;
 
-    public String getPicAddress() {
-        return picAddress;
+    public String getPicPath() {
+        return picPath;
     }
 
-    public void setPicAddress(String picAddress) {
-        this.picAddress = picAddress;
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
     }
 
     public String getPicName() {

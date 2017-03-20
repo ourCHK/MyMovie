@@ -6,17 +6,17 @@ package com.chk.mymovie.bean;
 
 public class PicInfo {
     String picName;
-    String picAddress;
+    String picPath;
     public String getPicName() {
         return picName;
     }
     public void setPicName(String picName) {
         this.picName = picName;
     }
-    public String getPicAddress() {
-        return picAddress;
+    public String getPicPath() {
+        return picPath;
     }
-    public void setPicAddress(String picAddress) {
-        this.picAddress = picAddress;
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
     }
 }

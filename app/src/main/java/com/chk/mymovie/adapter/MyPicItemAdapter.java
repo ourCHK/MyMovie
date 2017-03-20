@@ -2,6 +2,7 @@ package com.chk.mymovie.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,9 +47,9 @@ public class MyPicItemAdapter extends ArrayAdapter<Pic>{
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
         }
-        if(pic.getPicAddress() != null && !pic.getPicAddress().equals("")) {
+        if(pic.getPicPath() != null && !pic.getPicPath().equals("")) {
             Glide.with(getContext())
-                    .load("http://10.0.2.2:8080/MyMovieService/PicServlet?path="+pic.getPicAddress())
+                    .load("http://192.168.56.1:8080/MyMovieService/GetPicServlet?path="+pic.getPicPath())
                     .into(viewHolder.picImage);
             viewHolder.picText.setText(pic.getPicName());
         }

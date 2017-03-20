@@ -2,7 +2,6 @@ package com.chk.mymovie;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Picture;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.chk.mymovie.adapter.MyPicItemAdapter;
@@ -22,7 +20,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -42,7 +39,8 @@ public class TestGsonActivity extends AppCompatActivity {
     ListView picListView;
     ArrayAdapter picAdapter;
     int from = 0;   //开始查询的页数
-    int to = 10;    //终止查询的页数
+    int to = 5;    //终止查询的页数
+    int size = 5;   //查询的间隔
 
     String picListJson;
     Handler handler;
@@ -68,8 +66,8 @@ public class TestGsonActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 picList.clear();
-                from -= 10;
-                to -= 10;
+                from -= size;
+                to -= size;
                 getJson(from,to);
             }
         });
@@ -78,8 +76,8 @@ public class TestGsonActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 picList.clear();
-                from += 10;
-                to += 10;
+                from += size;
+                to += size;
                 getJson(from,to);
             }
         });
@@ -116,11 +114,11 @@ public class TestGsonActivity extends AppCompatActivity {
      */
     public void getJson(int from,int to) {
                 OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder().url("http://10.0.2.2:8080/MyMovieService/GetJsonServlet?from=" + from + "&to=" + to).build();
+        Request request = new Request.Builder().url("http://192.168.56.1:8080/MyMovieService/GetJsonServlet?from=" + from + "&to=" + to).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                Log.e(TAG,"network request fail");
             }
 
             @Override
@@ -131,7 +129,7 @@ public class TestGsonActivity extends AppCompatActivity {
 //                picInfo = parseJson(picListJson);
 //                Log.e(TAG,picListJson);
 //                Log.e(TAG,picInfo.getPicName());
-//                Log.e(TAG,picInfo.getPicAddress());
+//                Log.e(TAG,picInfo.getPicPath());
 //
 //                byte[] Picture_bt = response.body().bytes();
 //                Message msg = new Message();
@@ -153,10 +151,10 @@ public class TestGsonActivity extends AppCompatActivity {
         Gson gson = new Gson();
         picInfoList = gson.fromJson(picListJson,new TypeToken<ArrayList<PicInfo>>(){}.getType());
         for(PicInfo picInfo:picInfoList) {
-            Log.e(TAG,picInfo.getPicName()+picInfo.getPicAddress()+"");
+            Log.e(TAG,picInfo.getPicName()+picInfo.getPicPath()+"");
             Pic pic = new Pic();
             pic.setPicName(picInfo.getPicName());
-            pic.setPicAddress(picInfo.getPicAddress());
+            pic.setPicPath(picInfo.getPicPath());
             picList.add(pic);
         }
     }
