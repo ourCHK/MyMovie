@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.openReg:
                 OkHttpClient mOkHttpClient = new OkHttpClient();
                 Request request = new Request.Builder()
-                        .url("http://192.168.56.1:8080/MyMovieService/RegisterServlet").build();
+                        .url("http://10.0.2.2:8080/MyMovieService/RegisterServlet").build();
                 mOkHttpClient.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
