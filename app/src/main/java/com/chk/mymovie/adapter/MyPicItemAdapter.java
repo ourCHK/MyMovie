@@ -49,7 +49,7 @@ public class MyPicItemAdapter extends ArrayAdapter<Pic>{
         }
         if(pic.getPicPath() != null && !pic.getPicPath().equals("")) {
             Glide.with(getContext())
-                    .load("http://192.168.56.1:8080/MyMovieService/GetPicServlet?path="+pic.getPicPath())
+                    .load("http://10.0.2.2:8080/MyMovieService/GetPicServlet?path="+pic.getPicPath())
                     .into(viewHolder.picImage);
             viewHolder.picText.setText(pic.getPicName());
         }
