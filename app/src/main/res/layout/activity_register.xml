@@ -46,13 +46,13 @@
                     android:layout_gravity="center"
                     android:orientation="horizontal">
                     <RadioButton
-                        android:id="@+id/chooseBoy"
+                        android:id="@+id/chooseMan"
                         android:text="男"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="100dp"/>
                     <RadioButton
-                        android:id="@+id/chooseGirl"
+                        android:id="@+id/chooseWoman"
                         android:text="女"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     />
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/passwordReg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </TableRow>
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     />
                 <EditText
-                    android:id="@+id/passwordRe"
+                    android:id="@+id/passwordRegRe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </TableRow>

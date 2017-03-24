@@ -1,7 +1,9 @@
 package com.chk.mymovie;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,16 +17,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.chk.mymovie.impl.UserManager;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -45,15 +37,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     public static final int FAILURE_LOGIN = 2;
 
-    ProgressDialog pd;
+    /**
+     * 活动启动码
+     */
+    public static final int REQUEST_CODE = 17;
+
+    /**
+     * 成功注册结果码
+     */
+    public static final int REGISTER_SUCCESS = 17;
+
 
     Button openReg;
     Button login;
-    CheckBox autoLog;
+    CheckBox remember;
     EditText account;
     EditText password;
-
+    ProgressDialog pd;
     Handler handler;
+    String accountContent;
+    String passwordContent;
+
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+    boolean isRemember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,46 +100,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void init() {
+
+        pref = getPreferences(Context.MODE_PRIVATE);
+        editor = pref.edit();
+        isRemember = pref.getBoolean("isRemember",false);
+
         openReg = (Button) findViewById(R.id.openReg);
         login = (Button) findViewById(R.id.login);
-        autoLog = (CheckBox) findViewById(R.id.autoLogin);
+        remember = (CheckBox) findViewById(R.id.autoLogin);
         account = (EditText) findViewById(R.id.account);
         password = (EditText) findViewById(R.id.password);
         openReg.setOnClickListener(this);
         login.setOnClickListener(this);
-
-        autoLog.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Log.e(TAG,b+"");
+                isRemember = b;
             }
         });
-
         pd = new ProgressDialog(this);
         pd.setTitle("请稍等");
         pd.setMessage("正在登录中...");
+
+
+
     }
 
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.openReg:
-                OkHttpClient mOkHttpClient = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .url("http://10.0.2.2:8080/MyMovieService/RegisterServlet").build();
-                mOkHttpClient.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.e(TAG,"error:"+e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        Log.e(TAG,"authSuccess");
-                        Intent intentMain = new Intent(LoginActivity.this,RegisterActivity.class);
-                        startActivity(intentMain);
-                    }
-                });
+                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivityForResult(intent,REQUEST_CODE);
                 break;
             case R.id.login:
                 login();
@@ -140,12 +139,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       switch (resultCode) {
+           case REGISTER_SUCCESS:
+               account.setText(data.getStringExtra("account"));
+               password.setText(data.getStringExtra("password"));
+               break;
+           default:
+               break;
+       }
+    }
+
     /**
      * 登录
      */
     public void login () {
-        String accountContent = account.getText().toString();
-        String passwordContent = password.getText().toString();
+        accountContent = account.getText().toString();
+        passwordContent = password.getText().toString();
         if (accountContent.isEmpty()) {
             Toast.makeText(this, "请将账号密码填写完整", Toast.LENGTH_SHORT).show();
             return;
@@ -158,5 +169,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         UserManager userManager = new UserManager();
         userManager.loginUser(accountContent,passwordContent,handler);
 
+    }
+
+    /**
+     * 存储登录信息
+     */
+    public void storeLogin() {
+
+        if(isRemember) {
+            editor.putString("account",accountContent);
+            editor.putString("password",passwordContent);
+        } else {
+            editor.clear();
+        }
+        editor.putBoolean("isRemember",isRemember);
+
+    }
+
+    /**
+     * 恢复登录信息
+     */
+    public void restoreLogin() {
+        if(isRemember) {
+
+        }
     }
 }
