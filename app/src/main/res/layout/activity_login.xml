@@ -55,7 +55,7 @@
 
             <CheckBox
                 android:id="@+id/autoLogin"
-                android:text="自动登录"
+                android:text="记住账号密码"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
