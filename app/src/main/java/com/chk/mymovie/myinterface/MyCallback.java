@@ -5,5 +5,5 @@ package com.chk.mymovie.myinterface;
  */
 
 public class MyCallback {
-
+           
 }

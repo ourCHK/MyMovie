@@ -73,15 +73,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case NETWORK_ERROR:
+                        pd.dismiss();
+                        Toast.makeText(LoginActivity.this,"网络错误！",Toast.LENGTH_SHORT).show();
                         break;
                     case SUCCESS_LOGIN:
+                        storeLogin();   //界面结束时存储信息
                         postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 pd.dismiss();
-                                Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_SHORT).show();
                                 Intent intentLogin = new Intent(LoginActivity.this,MainActivity.class);
                                 startActivity(intentLogin);
+                                finish();
                             }
                         },1000);
                         break;
@@ -99,11 +103,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         };
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     public void init() {
 
         pref = getPreferences(Context.MODE_PRIVATE);
         editor = pref.edit();
-        isRemember = pref.getBoolean("isRemember",false);
 
         openReg = (Button) findViewById(R.id.openReg);
         login = (Button) findViewById(R.id.login);
@@ -122,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         pd.setTitle("请稍等");
         pd.setMessage("正在登录中...");
 
-
+        restoreLogin();
 
     }
 
@@ -183,15 +191,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editor.clear();
         }
         editor.putBoolean("isRemember",isRemember);
-
+        editor.commit();
     }
 
     /**
      * 恢复登录信息
      */
     public void restoreLogin() {
-        if(isRemember) {
+        accountContent = pref.getString("account","");
+        passwordContent = pref.getString("password","");
+        isRemember = pref.getBoolean("isRemember",false);
 
-        }
+        account.setText(accountContent);
+        password.setText(passwordContent);
+        remember.setChecked(isRemember);
     }
 }

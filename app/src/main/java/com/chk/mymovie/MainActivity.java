@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.chk.mymovie.adapter.MyViewPagerFragmentAdapter;
 import com.chk.mymovie.fragment.ContentFragment;
+import com.chk.mymovie.fragment.PersonalCenterFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
     public void init(){
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         fm = getSupportFragmentManager();
-        fragmentList = new ArrayList<Fragment>();
+        fragmentList = new ArrayList<>();
         fragmentList.add(new ContentFragment());
         fragmentList.add(new ContentFragment());
-        fragmentList.add(new ContentFragment());
+        fragmentList.add(new PersonalCenterFragment());
         viewPager.setAdapter(new MyViewPagerFragmentAdapter(fm,fragmentList));
 
     }

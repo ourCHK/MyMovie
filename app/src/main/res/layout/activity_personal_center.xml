@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_personal_center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F0F0"
+    tools:context="com.chk.mymovie.PersonalCenter">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="HAVE A NICE DAY!\nCHK"
+            android:textColor="#00ff00"
+            android:gravity="center"
+            android:textSize="35sp"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="#0fffff"/>
+
+        <TableLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FCFCFC">
+            <TableRow
+                android:clickable="true"
+                android:background="@drawable/click_effect">
+                <TextView
+                    android:text="昵称"
+                    android:textSize="16sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="10dp"
+                    />
+                <TextView
+                    android:text=">"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FCFCFC"
+            android:divider="@drawable/diver"
+            android:showDividers="middle">
+            <TableRow
+                android:clickable="true"
+                android:background="@drawable/click_effect">
+                <TextView
+                    android:text="我的订单"
+                    android:textSize="16sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="10dp"
+                    />
+
+                <TextView
+                    android:text=">"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                />
+            </TableRow>
+
+            <TableRow
+                android:clickable="true"
+                android:background="@drawable/click_effect">
+                <TextView
+                    android:text="购物车"
+                    android:textSize="16sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="10dp"/>
+
+                <TextView
+                    android:text=">"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FCFCFC"
+            >
+            <TableRow
+                android:clickable="true"
+                android:background="@drawable/click_effect">
+                <TextView
+                    android:text="清空图片缓存"
+                    android:textSize="16sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="10dp"/>
+
+                <TextView
+                    android:text=">"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FCFCFC">
+            <TableRow
+                android:clickable="true"
+                android:background="@drawable/click_effect">
+                <TextView
+                    android:text="退出登录"
+                    android:textSize="16sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="10dp"/>
+
+                <TextView
+                    android:text=">"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FCFCFC">
+            <TableRow
+                android:clickable="true"
+                android:background="@drawable/click_effect">
+                <TextView
+                    android:text="关于"
+                    android:textSize="16sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="10dp"/>
+
+                <TextView
+                    android:text=">"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+</ScrollView>
