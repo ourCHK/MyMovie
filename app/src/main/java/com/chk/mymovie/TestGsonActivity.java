@@ -13,27 +13,26 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.chk.mymovie.adapter.MyPicItemAdapter;
+import com.chk.mymovie.bean.Movie;
 import com.chk.mymovie.bean.Pic;
 import com.chk.mymovie.bean.PicInfo;
+import com.chk.mymovie.tools.OKHttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 
 public class TestGsonActivity extends AppCompatActivity {
 
-    public static String TAG = "TestGsonActivity";
+    public static final String TAG = "TestGsonActivity";
     public static final int PARSE_COMPLETE = 2;
-    public PicInfo picInfo;
-    ArrayList<Pic> picList;
-    ArrayList<PicInfo> picInfoList;
+
     Button lastPage;
     Button nextPage;
     ListView picListView;
@@ -42,30 +41,46 @@ public class TestGsonActivity extends AppCompatActivity {
     int to = 5;    //终止查询的页数
     int size = 5;   //查询的间隔
 
-    String picListJson;
+    ArrayList<Movie> movieList;
     Handler handler;
-    byte[] bytes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_gson);
         init();
+
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch(msg.what) {
+                    case 1:
+                        //通过imageview，设置图片
+                        break;
+                    case 2:
+                        Log.e(TAG,"shoudao");
+                        picAdapter.notifyDataSetChanged();
+                        picListView.setSelection(0);
+                        break;
+                }
+            }
+        };
+
         getJson(from,to);
     }
 
 
     public void init() {
-        picList = new ArrayList<>();
-        picInfoList = new ArrayList<>();
+        movieList = new ArrayList<>();
 
         lastPage = (Button) findViewById(R.id.lastPage);
         nextPage = (Button) findViewById(R.id.nextPage);
+        picListView = (ListView) findViewById(R.id.picList);
 
         lastPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                picList.clear();
+                movieList.clear();
                 from -= size;
                 to -= size;
                 getJson(from,to);
@@ -75,34 +90,15 @@ public class TestGsonActivity extends AppCompatActivity {
         nextPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                picList.clear();
+                movieList.clear();
                 from += size;
                 to += size;
                 getJson(from,to);
             }
         });
 
-        picListView = (ListView) findViewById(R.id.picList);
-        picAdapter = new MyPicItemAdapter(TestGsonActivity.this,R.layout.layout_picitem,picList);
+        picAdapter = new MyPicItemAdapter(TestGsonActivity.this,R.layout.layout_picitem,movieList);
         picListView.setAdapter(picAdapter);
-
-
-        handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                switch(msg.what) {
-                    case 1:
-                        byte[] Picture_bt = (byte[]) msg.obj;
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(Picture_bt, 0, Picture_bt.length);
-                        //通过imageview，设置图片
-                        break;
-                    case 2:
-                        picAdapter.notifyDataSetChanged();
-                        picListView.setSelection(0);
-                        break;
-                }
-             }
-        };
 
     }
 
@@ -113,49 +109,31 @@ public class TestGsonActivity extends AppCompatActivity {
      * @param to 终止的页数
      */
     public void getJson(int from,int to) {
-                OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder().url("http://10.0.2.2:8080/MyMovieService/GetJsonServlet?from=" + from + "&to=" + to).build();
-        okHttpClient.newCall(request).enqueue(new Callback() {
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("from",from+"");
+        hashMap.put("to",to+"");
+        OKHttpUtil.getRequest("http://10.0.2.2:8080/MyMovieService/GetJsonServlet", hashMap, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.e(TAG,"network request fail");
+                Log.getStackTraceString(e);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                picListJson = response.body().string();
-                parseListJsonInfo();
-                handler.sendEmptyMessage(PARSE_COMPLETE);
-//                picInfo = parseJson(picListJson);
-//                Log.e(TAG,picListJson);
-//                Log.e(TAG,picInfo.getPicName());
-//                Log.e(TAG,picInfo.getPicPath());
-//
-//                byte[] Picture_bt = response.body().bytes();
-//                Message msg = new Message();
-//                msg.obj = Picture_bt;
-//                msg.what = 1;
-//                handler.sendMessage(msg);
-
+                String result = response.body().string();
+                parseListJsonInfo(result);
 
             }
         });
     }
 
-    public PicInfo parseJson(String picJson) {
+    public void parseListJsonInfo(String movieInfo) {
+        movieList.clear();
         Gson gson = new Gson();
-        return gson.fromJson(picJson,PicInfo.class);
-    }
-
-    public void parseListJsonInfo() {
-        Gson gson = new Gson();
-        picInfoList = gson.fromJson(picListJson,new TypeToken<ArrayList<PicInfo>>(){}.getType());
-        for(PicInfo picInfo:picInfoList) {
-            Log.e(TAG,picInfo.getPicName()+picInfo.getPicPath()+"");
-            Pic pic = new Pic();
-            pic.setPicName(picInfo.getPicName());
-            pic.setPicPath(picInfo.getPicPath());
-            picList.add(pic);
+        ArrayList<Movie> movieTempList = gson.fromJson(movieInfo,new TypeToken<ArrayList<Movie>>(){}.getType());
+        for(Movie movie: movieTempList) {
+           movieList.add(movie);
         }
+        handler.sendEmptyMessage(PARSE_COMPLETE);
     }
 }
