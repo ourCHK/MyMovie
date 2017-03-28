@@ -127,6 +127,10 @@ public class TestGsonActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 解析Json至List
+     * @param movieInfo
+     */
     public void parseListJsonInfo(String movieInfo) {
         movieList.clear();
         Gson gson = new Gson();

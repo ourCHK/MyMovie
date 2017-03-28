@@ -25,7 +25,7 @@ public class ContentFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_movie,container,false);
+        View view = inflater.inflate(R.layout.activity_recycler_view_test,container,false);
         return view;
     }
 
