@@ -26,9 +26,30 @@ import okhttp3.Response;
 
 public class MovieManager implements MovieDao{
 
+    String genymotionIp = "http://192.168.56.1:8080";
+    String nativeIp = "http://10.0.2.2:8080";
+    String chooseIp = nativeIp;
+
+
+    /**
+     * 网络错误
+     */
     public static final int NETWORK_ERROR = -1;
+
+    /**
+     * 获取Json完成
+     */
     public static final int GET_COMPLETE = 1;
+
+    /**
+     * 解析Json完成
+     */
     public static final int PARSE_COMPLETE = 2;
+
+    /**
+     * 获取跟多数据
+     */
+    public static final int GET_MORE = 3;
 
     /**
      * 获取movie的Json
@@ -41,7 +62,9 @@ public class MovieManager implements MovieDao{
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("from",from+"");
         hashMap.put("to",count+"");
-        OKHttpUtil.getRequest("http://10.0.2.2:8080/MyMovieService/GetJsonServlet", hashMap, new Callback() {
+
+        OKHttpUtil.getRequest(chooseIp + "/MyMovieService/GetJsonServlet", hashMap, new Callback() {
+
             @Override
             public void onFailure(Call call, IOException e) {
                 handler.sendEmptyMessage(NETWORK_ERROR);
@@ -67,12 +90,17 @@ public class MovieManager implements MovieDao{
      */
     @Override
     public void parseMovieJson(List<Movie> movieList,String movieJson,Handler handler) {
-        movieList.clear();
+        if (!movieList.isEmpty())
+            movieList.remove(movieList.size() - 1);
         Gson gson = new Gson();
         ArrayList<Movie> movieTempList = gson.fromJson(movieJson,new TypeToken<ArrayList<Movie>>(){}.getType());
         for(Movie movie: movieTempList) {
             movieList.add(movie);
         }
         handler.sendEmptyMessage(PARSE_COMPLETE);
+
     }
+
+
+
 }

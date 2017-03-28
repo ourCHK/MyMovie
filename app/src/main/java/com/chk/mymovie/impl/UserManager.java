@@ -13,12 +13,13 @@ import java.util.HashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 
 public class UserManager implements UserDao {
 
+	String genymotionIp = "http://192.168.56.1:8080";
+	String nativeIp = "http://10.0.2.2:8080";
+	String chooseIp = nativeIp;
 
 	@Override
 	public void loginUser(String userAccount,String userPassword,final Handler logHandler) {
@@ -27,7 +28,7 @@ public class UserManager implements UserDao {
 		HashMap<String,String>	hashMap = new HashMap<>();
 		hashMap.put("account",userAccount);
 		hashMap.put("password",userPassword);
-		OKHttpUtil.postRequest("http://10.0.2.2:8080/MyMovieService/LoginServlet", hashMap, new Callback() {
+		OKHttpUtil.postRequest(chooseIp + "/MyMovieService/LoginServlet", hashMap, new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
 				logHandler.sendEmptyMessage(LoginActivity.NETWORK_ERROR);	//网络请求失败
@@ -53,7 +54,7 @@ public class UserManager implements UserDao {
 		hashMap.put("password",password);
 		hashMap.put("phone",phone);
 
-		OKHttpUtil.postRequest("http://10.0.2.2:8080/MyMovieService/RegisterServlet", hashMap, new Callback() {
+		OKHttpUtil.postRequest(chooseIp + "/MyMovieService/RegisterServlet", hashMap, new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
 				regHandler.sendEmptyMessage(RegisterActivity.NETWORK_ERROR);

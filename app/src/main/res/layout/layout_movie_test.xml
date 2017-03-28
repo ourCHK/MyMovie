@@ -5,18 +5,30 @@
     android:layout_height="match_parent">
 
 
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        
+        <SearchView
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:background="@drawable/shape"
+            android:queryHint="查询内容"
+            android:focusable="false"
 
+            />
 
-        <com.chk.mymovie.myview.MyRecyclerView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </com.chk.mymovie.myview.MyRecyclerView>
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

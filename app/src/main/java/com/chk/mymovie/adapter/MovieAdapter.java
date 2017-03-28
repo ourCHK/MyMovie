@@ -20,6 +20,10 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
+    String genymotionIp = "http://192.168.56.1:8080";
+    String nativeIp = "http://10.0.2.2:8080";
+    String chooseIp = nativeIp;
+
     Context context;
 
     List<Movie> movieList;
@@ -60,7 +64,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         Movie movie = movieList.get(position);
         holder.movieName.setText(movie.getName());
-        Glide.with(context).load("http://10.0.2.2:8080/MyMovieService/GetPicServlet?path="+movie.getPath()).into(holder.movieImage);
+        Glide.with(context).load(chooseIp + "/MyMovieService/GetPicServlet?path="+movie.getPath()).into(holder.movieImage);
 
     }
 

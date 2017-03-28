@@ -22,6 +22,10 @@ import java.util.List;
 
 public class MovieAdapterTest extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    String genymotionIp = "http://192.168.56.1:8080";
+    String nativeIp = "http://10.0.2.2:8080";
+    String chooseIp = genymotionIp;
+
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
     private List<Movie> mDataset;
@@ -86,7 +90,7 @@ public class MovieAdapterTest extends RecyclerView.Adapter<RecyclerView.ViewHold
         if(holder instanceof MovieViewHolder) {
             Movie movie = mDataset.get(position);
             ((MovieViewHolder) holder).movieName.setText(movie.getName());
-            Glide.with(context).load("http://10.0.2.2:8080/MyMovieService/GetPicServlet?path="+movie.getPath()).into(((MovieViewHolder) holder).movieImage);
+            Glide.with(context).load(chooseIp + "/MyMovieService/GetPicServlet?path="+movie.getPath()).into(((MovieViewHolder) holder).movieImage);
         } else {
             ((ProgressBarViewHolder) holder).progressBar.setIndeterminate(true);
         }
@@ -108,7 +112,6 @@ public class MovieAdapterTest extends RecyclerView.Adapter<RecyclerView.ViewHold
         ImageView movieImage;
         TextView movieName;
         TextView movieScore;
-
 
         public MovieViewHolder(View itemView) {
             super(itemView);
