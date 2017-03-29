@@ -104,6 +104,10 @@ public class MovieFragment extends Fragment {
         count = 5;
 
         swipeRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_red_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_green_light);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -112,7 +116,7 @@ public class MovieFragment extends Fragment {
                     public void run() {
                         refresh();
                     }
-                },1000);
+                },5000);
             }
         });
 
