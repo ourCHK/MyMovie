@@ -19,6 +19,7 @@ public class UserManager implements UserDao {
 
 	String genymotionIp = "http://192.168.56.1:8080";
 	String nativeIp = "http://10.0.2.2:8080";
+	String outerIp = "http://18.8.6.109:8080";
 	String chooseIp = nativeIp;
 
 	@Override

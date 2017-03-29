@@ -37,6 +37,5 @@ public class MainActivity extends AppCompatActivity {
         fragmentList.add(new ContentFragment());
         fragmentList.add(new PersonalCenterFragment());
         viewPager.setAdapter(new MyViewPagerFragmentAdapter(fm,fragmentList));
-
     }
 }

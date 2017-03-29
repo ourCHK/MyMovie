@@ -27,7 +27,7 @@ public class PersonalCenterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_personal_center,container,false);
+        View view = inflater.inflate(R.layout.activity_fragment_personal_center,container,false);
         return view;
     }
 

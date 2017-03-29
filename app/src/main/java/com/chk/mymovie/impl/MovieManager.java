@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.chk.mymovie.adapter.MyMovieAdapter;
 import com.chk.mymovie.bean.Movie;
 import com.chk.mymovie.dao.MovieDao;
 import com.chk.mymovie.tools.OKHttpUtil;
@@ -11,7 +12,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +28,7 @@ public class MovieManager implements MovieDao{
 
     String genymotionIp = "http://192.168.56.1:8080";
     String nativeIp = "http://10.0.2.2:8080";
+    String outerIp = "http://18.8.6.109:8080";
     String chooseIp = nativeIp;
 
 
@@ -50,6 +51,12 @@ public class MovieManager implements MovieDao{
      * 获取跟多数据
      */
     public static final int GET_MORE = 3;
+
+    /**
+     * 没有更多数据
+     */
+    public static final int NO_MORE = 4;
+
 
     /**
      * 获取movie的Json
@@ -90,17 +97,23 @@ public class MovieManager implements MovieDao{
      */
     @Override
     public void parseMovieJson(List<Movie> movieList,String movieJson,Handler handler) {
-        if (!movieList.isEmpty())
+        if (!movieList.isEmpty()) {
             movieList.remove(movieList.size() - 1);
+            if (movieList.get(movieList.size()-1).getName() == MyMovieAdapter.SET_PROGRESS_BAR)
+                movieList.remove(movieList.size() - 1);
+        }
+        if(movieJson.isEmpty()) {//若Json返回数据为kong,则不进行解析
+            Movie movie = new Movie();
+            movie.setName(MyMovieAdapter.SET_NO_MORE_TEXT);
+            movieList.add(movie);
+            handler.sendEmptyMessage(NO_MORE);
+            return;
+        }
         Gson gson = new Gson();
         ArrayList<Movie> movieTempList = gson.fromJson(movieJson,new TypeToken<ArrayList<Movie>>(){}.getType());
         for(Movie movie: movieTempList) {
             movieList.add(movie);
         }
         handler.sendEmptyMessage(PARSE_COMPLETE);
-
     }
-
-
-
 }
