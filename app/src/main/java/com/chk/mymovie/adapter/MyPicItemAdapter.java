@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chk.mymovie.R;
-import com.chk.mymovie.bean.Pic;
+import com.chk.mymovie.bean.Movie;
 
 import java.util.List;
 
@@ -20,11 +20,14 @@ import java.util.List;
  * Created by chk on 17-3-17.
  */
 
-public class MyPicItemAdapter extends ArrayAdapter<Pic>{
+public class MyPicItemAdapter extends ArrayAdapter<Movie>{
+    String genymotionIp = "http://192.168.56.1:8080";
+    String nativeIp = "http://10.0.2.2:8080";
+    String chooseIp = nativeIp;
 
     int resourceId;
 
-    public MyPicItemAdapter(Context context, int resource, List<Pic> objects) {
+    public MyPicItemAdapter(Context context, int resource, List<Movie> objects) {
         super(context, resource, objects);
         resourceId = resource;
     }
@@ -33,7 +36,7 @@ public class MyPicItemAdapter extends ArrayAdapter<Pic>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Pic pic = getItem(position);
+        Movie movie = getItem(position);
         View view;
         ViewHolder viewHolder;
 
@@ -47,11 +50,12 @@ public class MyPicItemAdapter extends ArrayAdapter<Pic>{
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
         }
-        if(pic.getPicPath() != null && !pic.getPicPath().equals("")) {
+        if(movie.getPath() != null && !movie.getPath().equals("")) {
             Glide.with(getContext())
-                    .load("http://10.0.2.2:8080/MyMovieService/GetPicServlet?path="+pic.getPicPath())
+                    .load(chooseIp + "/MyMovieService/GetPicServlet?path="+movie.getPath())
                     .into(viewHolder.picImage);
-            viewHolder.picText.setText(pic.getPicName());
+            Log.e("AG","执行");
+            viewHolder.picText.setText(movie.getName());
         }
         return view;
     }

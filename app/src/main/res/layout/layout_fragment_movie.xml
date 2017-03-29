@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="fragment_movie"/>
 
-</LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <SearchView
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:background="@drawable/shape"
+            android:queryHint="查询内容"
+            android:focusable="false"
+
+            />
+
+        <com.chk.mymovie.myview.MyMovieRecyclerView
+            android:id="@+id/myMovieRecycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        </com.chk.mymovie.myview.MyMovieRecyclerView>
+    </LinearLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>

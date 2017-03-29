@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/movieImage"
+        android:src="@drawable/shape"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/movieName"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="MovieName"
+            android:gravity="top"
+            android:textSize="18sp"
+            android:padding="5dp"/>
+        <TextView
+            android:id="@+id/movieScore"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="评分:5.4"
+            android:padding="5dp"/>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/buyTicket"
+        android:text="购票"
+        android:background="@drawable/button_background"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

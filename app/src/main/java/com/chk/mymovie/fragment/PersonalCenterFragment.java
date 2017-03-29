@@ -12,10 +12,12 @@ import com.chk.mymovie.R;
 
 /**
  * Created by chk on 17-3-13.
+ * 个人中心的fragment
  */
 
-public class ContentFragment extends Fragment {
+public class PersonalCenterFragment extends Fragment {
 
+    int resourceId; //界面id;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,7 @@ public class ContentFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_fragment_content,container,false);
+        View view = inflater.inflate(R.layout.activity_fragment_personal_center,container,false);
         return view;
     }
 
