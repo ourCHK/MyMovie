@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F0F0F0"
+    android:fitsSystemWindows="true"
     tools:context="com.chk.mymovie.PersonalCenter">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:fitsSystemWindows="true">
 
         <TextView
             android:text="HAVE A NICE DAY!\nCHK"
@@ -19,7 +21,8 @@
             android:textSize="35sp"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:background="#0fffff"/>
+            android:background="#0fffff"
+            android:fitsSystemWindows="true"/>
 
         <TableLayout
             android:layout_marginTop="20dp"

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,22 +8,24 @@
     android:orientation="vertical"
     tools:context="com.chk.mymovie.MainActivity">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
 
-    </android.support.v4.view.ViewPager>
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+    </FrameLayout>
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioGroupTest"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="3">
         <RadioButton
+            android:id="@+id/rb1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" android:drawableTop="@mipmap/ic_launcher"
@@ -34,8 +37,9 @@
             android:layout_weight="1"
             android:drawableTop="@mipmap/ic_launcher"
             style="@style/style_RadioButton" android:text="发现"
-            android:id="@+id/radioButton"/>
+            android:id="@+id/rb2"/>
         <RadioButton
+            android:id="@+id/rb3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -43,7 +47,5 @@
             style="@style/style_RadioButton"
             android:text="我"/>
     </RadioGroup>
-
-
 
 </LinearLayout>

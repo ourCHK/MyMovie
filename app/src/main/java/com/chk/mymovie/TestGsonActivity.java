@@ -1,7 +1,5 @@
 package com.chk.mymovie;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +12,6 @@ import android.widget.ListView;
 
 import com.chk.mymovie.adapter.MyPicItemAdapter;
 import com.chk.mymovie.bean.Movie;
-import com.chk.mymovie.bean.Pic;
-import com.chk.mymovie.bean.PicInfo;
 import com.chk.mymovie.tools.OKHttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

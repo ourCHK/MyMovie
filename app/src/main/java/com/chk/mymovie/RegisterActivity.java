@@ -63,6 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case NETWORK_ERROR:
+                        Toast.makeText(RegisterActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
                         break;
                     case SUCCESS_REGISTER:
                         Toast.makeText(RegisterActivity.this, "注册成功,返回登录！", Toast.LENGTH_SHORT).show();

@@ -1,15 +1,20 @@
 package com.chk.mymovie.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.chk.mymovie.MovieDetailActivity;
 import com.chk.mymovie.R;
 import com.chk.mymovie.bean.Movie;
 import com.chk.mymovie.myinterface.OnLoadMoreListener;
@@ -86,7 +91,24 @@ public class MyMovieAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof MovieViewHolder) {
-            Movie movie = movieList.get(position);
+            final Movie movie = movieList.get(position);
+
+            View view = ((MovieViewHolder) holder).itemView;
+            view.setOnClickListener(new View.OnClickListener() {   //设置整个view的点击事件
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, MovieDetailActivity.class);
+                    intent.putExtra("movie",movie);
+//                    intent.putExtra("title","movie:"+movie.getName()+"  id:"+movie.getId());
+                    context.startActivity(intent);
+                }
+            });
+            ((MovieViewHolder) holder).buyTicket.setOnClickListener(new View.OnClickListener() {    //设置view内按钮的点击事件
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "you click the button", Toast.LENGTH_SHORT).show();
+                }
+            });
             ((MovieViewHolder) holder).movieName.setText(movie.getName());
             Glide.with(context).load(chooseIp + "/MyMovieService/GetPicServlet?path="+movie.getPath()).into(((MovieViewHolder) holder).movieImage);
         } else if (holder instanceof ProgressBarViewHolder){
@@ -111,12 +133,14 @@ public class MyMovieAdapter extends RecyclerView.Adapter{
         ImageView movieImage;
         TextView movieName;
         TextView movieScore;
+        Button buyTicket;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
             movieImage = (ImageView) itemView.findViewById(R.id.movieImage);
             movieName = (TextView) itemView.findViewById(R.id.movieName);
             movieScore = (TextView) itemView.findViewById(R.id.movieScore);
+            buyTicket = (Button) itemView.findViewById(R.id.buyTicket);
         }
     }
 

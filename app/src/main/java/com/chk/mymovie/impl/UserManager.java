@@ -57,8 +57,6 @@ public class UserManager implements UserDao {
 		hashMap.put("account",account);
 		hashMap.put("password",password);
 		hashMap.put("phone",phone);
-
-
 		OKHttpUtil.postRequest(chooseIp + "/MyMovieService/RegisterServlet", hashMap, new Callback() {
 
 			@Override
