@@ -4,24 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <SearchView
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
-            android:background="@drawable/shape"
-            android:queryHint="查询内容"
-            android:focusable="false"
-
-            />
+        <!--<SearchView-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:iconifiedByDefault="false"-->
+            <!--android:background="@drawable/shape"-->
+            <!--android:queryHint="查询内容"-->
+            <!--android:focusable="false"-->
+            <!--/>-->
 
         <com.chk.mymovie.myview.MyMovieRecyclerView
             android:id="@+id/myMovieRecycleView"

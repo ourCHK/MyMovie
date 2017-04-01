@@ -1,11 +1,13 @@
 package com.chk.mymovie;
 
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -42,9 +44,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
+        toolbarInit();
         fragmentInit();
         widgetInit();
     }
+
+    private void toolbarInit() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+    }
+
+
 
     private void fragmentInit() {
         fm = getSupportFragmentManager();
@@ -52,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
         movieFragment = new MovieFragment();
         contentFragment = new ContentFragment();
         personalCenterFragment = new PersonalCenterFragment();
-        ft.add(R.id.frameLayout,personalCenterFragment,PERSONAL_CENTER_TAG);
-        ft.add(R.id.frameLayout,contentFragment,CONTENT_TAG);
-        ft.add(R.id.frameLayout,movieFragment,MOVIE_TAG);
+        ft.add(R.id.frameLayout2,personalCenterFragment,PERSONAL_CENTER_TAG);
+        ft.add(R.id.frameLayout2,contentFragment,CONTENT_TAG);
+        ft.add(R.id.frameLayout2,movieFragment,MOVIE_TAG);
         ft.hide(contentFragment);
         ft.hide(personalCenterFragment);
         ft.commit();
@@ -86,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void widgetInit() {
-        frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
+        frameLayout = (FrameLayout) findViewById(R.id.frameLayout2);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroupTest);
         rb1 = (RadioButton) findViewById(R.id.rb1);
         rb2 = (RadioButton) findViewById(R.id.rb2);
@@ -97,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 int id = group.getCheckedRadioButtonId();
                 switch (id) {
                     case R.id.rb1:
+                        toolbar.setVisibility(View.VISIBLE);
                         showFragment(MOVIE_TAG);
                         Log.i(TAG,"click rb1");
                         break;
@@ -105,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                         showFragment(CONTENT_TAG);
                         break;
                     case R.id.rb3:
+                        toolbar.setVisibility(View.GONE);
                         showFragment(PERSONAL_CENTER_TAG);
                         Log.i(TAG,"click rb3");
                         break;
