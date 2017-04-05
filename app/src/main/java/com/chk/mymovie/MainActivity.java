@@ -136,6 +136,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 设置在某些页面不显示toolbar
+     */
     void setToolbar() {
         if (currPage == 3 && appBarLayout.getTop() == 0) {
             toolbar.setVisibility(View.GONE);
