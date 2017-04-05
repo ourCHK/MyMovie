@@ -44,7 +44,7 @@ public class MyMovieAdapter extends RecyclerView.Adapter{
 
 
 
-    public MyMovieAdapter(List<Movie> movieList, MyMovieRecyclerView recyclerView, OnLoadMoreListener onLoadMoreListener) {
+    public MyMovieAdapter(List<Movie> movieList, MyMovieRecyclerView recyclerView,OnLoadMoreListener onLoadMoreListener) {
         this.movieList = movieList;
         this.recyclerView = recyclerView;
         recyclerView.setOnLoadMoreListener(onLoadMoreListener);

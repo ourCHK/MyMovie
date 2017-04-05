@@ -1,14 +1,18 @@
 package com.chk.mymovie;
 
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.system.Os;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -63,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         init();
@@ -86,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 startActivity(intentLogin);
                                 finish();
                             }
-                        },1000);
+                        },0);
                         break;
                     case FAILURE_LOGIN:
                         postDelayed(new Runnable() {
@@ -175,7 +180,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         pd.show();
         UserManager userManager = new UserManager();
         userManager.loginUser(accountContent,passwordContent,handler);
-
     }
 
     /**
