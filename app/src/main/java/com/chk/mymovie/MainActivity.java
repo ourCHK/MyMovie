@@ -1,5 +1,6 @@
 package com.chk.mymovie;
 
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,8 +25,10 @@ public class MainActivity extends AppCompatActivity {
     private final static String CONTENT_TAG = "ContentFragment";
     private final static String PERSONAL_CENTER_TAG = "PersonalCenterFragment";
 
+    AppBarLayout appBarLayout;
     Toolbar toolbar;
     FrameLayout frameLayout;
+    CoordinatorLayout coordinatorLayout;
     RadioGroup radioGroup;
     RadioButton rb1;
     RadioButton rb2;
@@ -35,9 +39,11 @@ public class MainActivity extends AppCompatActivity {
     MovieFragment movieFragment;
     ContentFragment contentFragment;
     PersonalCenterFragment personalCenterFragment;
+    int currPage;   //标记当前页面
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
@@ -96,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void widgetInit() {
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.frameLayout);
+        appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
         frameLayout = (FrameLayout) findViewById(R.id.frameLayout2);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroupTest);
         rb1 = (RadioButton) findViewById(R.id.rb1);
@@ -107,18 +115,19 @@ public class MainActivity extends AppCompatActivity {
                 int id = group.getCheckedRadioButtonId();
                 switch (id) {
                     case R.id.rb1:
-                        toolbar.setVisibility(View.VISIBLE);
+                        currPage = 1;
+                        setToolbar();
                         showFragment(MOVIE_TAG);
-                        Log.i(TAG,"click rb1");
                         break;
                     case R.id.rb2:
-                        Log.i(TAG,"click rb2");
+                        currPage = 2;
+                        setToolbar();
                         showFragment(CONTENT_TAG);
                         break;
                     case R.id.rb3:
-                        toolbar.setVisibility(View.GONE);
+                        currPage = 3;
+                        setToolbar();
                         showFragment(PERSONAL_CENTER_TAG);
-                        Log.i(TAG,"click rb3");
                         break;
                     default:
                         break;
@@ -127,6 +136,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    void setToolbar() {
+        if (currPage == 3 && appBarLayout.getTop() == 0) {
+            toolbar.setVisibility(View.GONE);
+        } else if (currPage == 2 && appBarLayout.getTop() == 0) {
+            toolbar.setVisibility(View.GONE);
+        } else if (currPage == 1) {
+            toolbar.setVisibility(View.VISIBLE);
+        }
 
+    }
 
 }
