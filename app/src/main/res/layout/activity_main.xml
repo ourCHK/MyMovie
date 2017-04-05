@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:transitionName="shareNames"
     tools:context="com.chk.mymovie.MainActivity">
 
 
@@ -17,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
