@@ -39,6 +39,9 @@ public class ContentFragment extends Fragment {
     MyOptionAdapter adapterArea;
     MyOptionAdapter adapterTime;
 
+    RecyclerView ComingSoonMovie;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

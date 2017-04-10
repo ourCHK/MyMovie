@@ -4,7 +4,9 @@ package com.chk.mymovie.impl;
 import android.os.Handler;
 
 import com.chk.mymovie.LoginActivity;
+import com.chk.mymovie.R;
 import com.chk.mymovie.RegisterActivity;
+import com.chk.mymovie.application.MyApplication;
 import com.chk.mymovie.dao.UserDao;
 import com.chk.mymovie.tools.OKHttpUtil;
 
@@ -17,11 +19,7 @@ import okhttp3.Response;
 
 public class UserManager implements UserDao {
 
-	String genymotionIp = "http://192.168.56.1:8080";
-	String nativeIp = "http://10.0.2.2:8080";
-	String outerIp = "http://18.8.6.109:8080";
-	String chooseIp = nativeIp;
-
+	String chooseIp = MyApplication.getContext().getString(R.string.choosedIp);
 
 	@Override
 	public void loginUser(String userAccount,String userPassword,final Handler logHandler) {

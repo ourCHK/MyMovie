@@ -1,6 +1,5 @@
 package com.chk.mymovie.impl;
 
-import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -9,7 +8,7 @@ import com.chk.mymovie.R;
 import com.chk.mymovie.adapter.MyMovieAdapter;
 import com.chk.mymovie.application.MyApplication;
 import com.chk.mymovie.bean.Movie;
-import com.chk.mymovie.dao.MovieDao;
+import com.chk.mymovie.dao.ComingSoonMovieDao;
 import com.chk.mymovie.tools.OKHttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,13 +23,13 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 /**
- * Created by chk on 17-3-27.
+ * Created by chk on 17-4-10.
  */
 
-public class MovieManager implements MovieDao{
+public class ComingSoonMovieManager implements ComingSoonMovieDao{
 
     String chooseIp = MyApplication.getContext().getString(R.string.choosedIp);
-    String type = MyApplication.getContext().getString(R.string.OnShowMovie);   //用于区别是获取电影的类型,比如正在上映和未上映等等
+    String type = MyApplication.getContext().getString(R.string.ComingSoonMovie);   //用于区别是获取电影的类型,比如正在上映和未上映等等
 
     /**
      * 网络错误
@@ -57,7 +56,6 @@ public class MovieManager implements MovieDao{
      */
     public static final int NO_MORE = 4;
 
-
     /**
      * 获取movie的Json
      * @param from 开始查询的位置
@@ -71,7 +69,7 @@ public class MovieManager implements MovieDao{
         hashMap.put("to",count+"");
         hashMap.put("type",type);
 
-        OKHttpUtil.getRequest(chooseIp + "/MyMovieService/GetJsonServlet", hashMap, new Callback() {
+        OKHttpUtil.getRequest(chooseIp + "/MyMovieService/GetJsonServlet?type="+type, hashMap, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {

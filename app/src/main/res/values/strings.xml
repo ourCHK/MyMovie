@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">MyMovie</string>
+    <string name="choosedIp">http://10.0.2.2:8080</string>
+    <string name="genymotionIp">http://192.168.56.1:8080</string>
+    <string name="nativeIp">http://10.0.2.2:8080</string>
+    <string name="outerIp">http://18.8.6.109:8080</string>
+
+    <string name="OnShowMovie">OnShow</string>
+    <string name="ComingSoonMovie">ComingSoon</string>
+    <integer name="Onshow1">1</integer>
+    <integer name="Onshow2">2</integer>
 </resources>
