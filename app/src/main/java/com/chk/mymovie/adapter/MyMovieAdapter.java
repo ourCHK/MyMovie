@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.chk.mymovie.MovieDetailActivity;
+import com.chk.mymovie.MovieDetailActivityBefore;
 import com.chk.mymovie.R;
 import com.chk.mymovie.application.MyApplication;
 import com.chk.mymovie.bean.Movie;
@@ -95,7 +95,7 @@ public class MyMovieAdapter extends RecyclerView.Adapter{
             view.setOnClickListener(new View.OnClickListener() {   //设置整个view的点击事件
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, MovieDetailActivity.class);
+                    Intent intent = new Intent(context, MovieDetailActivityBefore.class);
                     intent.putExtra("movie",movie);
 //                    intent.putExtra("title","movie:"+movie.getName()+"  id:"+movie.getId());
                     context.startActivity(intent);

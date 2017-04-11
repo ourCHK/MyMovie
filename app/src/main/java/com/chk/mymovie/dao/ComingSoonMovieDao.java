@@ -2,6 +2,7 @@ package com.chk.mymovie.dao;
 
 import android.os.Handler;
 
+import com.chk.mymovie.bean.ComingSoonMovie;
 import com.chk.mymovie.bean.Movie;
 
 import java.util.List;
@@ -19,5 +20,5 @@ public interface ComingSoonMovieDao {
      */
     public void getMovieJson(int from,int count,Handler handler);
 
-    public void parseMovieJson(List<Movie> movieList, String movieJson, Handler handler);
+    public void parseMovieJson(List<ComingSoonMovie> csMovieList, String movieJson, Handler handler);
 }

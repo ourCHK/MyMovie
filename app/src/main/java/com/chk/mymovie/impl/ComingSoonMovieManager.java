@@ -5,9 +5,10 @@ import android.os.Message;
 import android.util.Log;
 
 import com.chk.mymovie.R;
+import com.chk.mymovie.adapter.MyComingSoonMovieAdapter;
 import com.chk.mymovie.adapter.MyMovieAdapter;
 import com.chk.mymovie.application.MyApplication;
-import com.chk.mymovie.bean.Movie;
+import com.chk.mymovie.bean.ComingSoonMovie;
 import com.chk.mymovie.dao.ComingSoonMovieDao;
 import com.chk.mymovie.tools.OKHttpUtil;
 import com.google.gson.Gson;
@@ -69,7 +70,7 @@ public class ComingSoonMovieManager implements ComingSoonMovieDao{
         hashMap.put("to",count+"");
         hashMap.put("type",type);
 
-        OKHttpUtil.getRequest(chooseIp + "/MyMovieService/GetJsonServlet?type="+type, hashMap, new Callback() {
+        OKHttpUtil.getRequest(chooseIp + "/MyMovieService/GetJsonServlet", hashMap, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -88,6 +89,7 @@ public class ComingSoonMovieManager implements ComingSoonMovieDao{
         });
     }
 
+
     /**
      * 解析Json至movie
      * @param movieList 主线程传近来的movieList
@@ -95,24 +97,25 @@ public class ComingSoonMovieManager implements ComingSoonMovieDao{
      * @param handler 用于和主线程进行通信
      */
     @Override
-    public void parseMovieJson(List<Movie> movieList,String movieJson,Handler handler) {
+    public void parseMovieJson(List<ComingSoonMovie> movieList, String movieJson, Handler handler) {
         if (!movieList.isEmpty()) {
             movieList.remove(movieList.size() - 1);
-            if (movieList.get(movieList.size()-1).getName() == MyMovieAdapter.SET_PROGRESS_BAR)
+            if (movieList.get(movieList.size()-1).getTitle() == MyMovieAdapter.SET_PROGRESS_BAR)
                 movieList.remove(movieList.size() - 1);
         }
         if(movieJson.isEmpty()) {//若Json返回数据为kong,则不进行解析
-            Movie movie = new Movie();
-            movie.setName(MyMovieAdapter.SET_NO_MORE_TEXT);
-            movieList.add(movie);
+            ComingSoonMovie csMovie = new ComingSoonMovie();
+            csMovie.setTitle(MyComingSoonMovieAdapter.SET_NO_MORE_TEXT);
+            movieList.add(csMovie);
             handler.sendEmptyMessage(NO_MORE);
             return;
         }
         Gson gson = new Gson();
-        ArrayList<Movie> movieTempList = gson.fromJson(movieJson,new TypeToken<ArrayList<Movie>>(){}.getType());
-        for(Movie movie: movieTempList) {
-            movieList.add(movie);
+         ArrayList<ComingSoonMovie> movieTempList = gson.fromJson(movieJson,new TypeToken<ArrayList<ComingSoonMovie>>(){}.getType());
+        for(ComingSoonMovie csMovie: movieTempList) {
+            movieList.add(csMovie);
         }
+        Log.e("tag",movieList.size()+"");
         handler.sendEmptyMessage(PARSE_COMPLETE);
     }
 }
