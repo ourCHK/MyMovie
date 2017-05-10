@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 public class MyPicItemAdapter extends ArrayAdapter<Movie>{
-    String chooseIp = MyApplication.getContext().getString(R.string.choosedIp);
+    String choosedIp = MyApplication.getContext().getString(R.string.choosedIp);
 
     int resourceId;
 
@@ -51,7 +51,7 @@ public class MyPicItemAdapter extends ArrayAdapter<Movie>{
         }
         if(movie.getPath() != null && !movie.getPath().equals("")) {
             Glide.with(getContext())
-                    .load(chooseIp + "/MyMovieService/GetPicServlet?path="+movie.getPath())
+                    .load(choosedIp + "/MyMovieService/GetPicServlet?path="+movie.getPath())
                     .into(viewHolder.picImage);
             Log.e("AG","执行");
             viewHolder.picText.setText(movie.getName());
