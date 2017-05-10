@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type">
+        <item>爱情</item>
+        <item>喜剧</item>
+        <item>动作</item>
+        <item>动画</item>
+        <item>恐怖</item>
+        <item>剧情</item>
+        <item>科幻</item>
+    </string-array>
+
+    <string-array name="area">
+        <item>大陆</item>
+        <item>美国</item>
+        <item>韩国</item>
+        <item>日本</item>
+        <item>中国香港</item>
+        <item>中国台湾</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="time">
+        <item>2017年以后</item>
+        <item>2017</item>
+        <item>2016</item>
+        <item>2015</item>
+        <item>2014</item>
+        <item>2013</item>
+        <item>2012</item>
+        <item>2011</item>
+        <item>2000-2010</item>
+        <item>90年代</item>
+        <item>80年代</item>
+        <item>70年代</item>
+        <item>更早</item>
+    </string-array>
+</resources>

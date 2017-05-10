@@ -1,15 +1,15 @@
 package com.chk.mymovie.impl;
 
-import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
 import com.chk.mymovie.R;
+import com.chk.mymovie.adapter.MyComingSoonMovieAdapter;
 import com.chk.mymovie.adapter.MyMovieAdapter;
 import com.chk.mymovie.application.MyApplication;
-import com.chk.mymovie.bean.Movie;
-import com.chk.mymovie.dao.MovieDao;
+import com.chk.mymovie.bean.ComingSoonMovie;
+import com.chk.mymovie.dao.ComingSoonMovieDao;
 import com.chk.mymovie.tools.OKHttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,13 +24,13 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 /**
- * Created by chk on 17-3-27.
+ * Created by chk on 17-4-10.
  */
 
-public class MovieManager implements MovieDao{
+public class ComingSoonMovieManager implements ComingSoonMovieDao{
 
     String chooseIp = MyApplication.getContext().getString(R.string.choosedIp);
-    String type = MyApplication.getContext().getString(R.string.OnShowMovie);   //用于区别是获取电影的类型,比如正在上映和未上映等等
+    String type = MyApplication.getContext().getString(R.string.ComingSoonMovie);   //用于区别是获取电影的类型,比如正在上映和未上映等等
 
     /**
      * 网络错误
@@ -56,7 +56,6 @@ public class MovieManager implements MovieDao{
      * 没有更多数据
      */
     public static final int NO_MORE = 4;
-
 
     /**
      * 获取movie的Json
@@ -90,6 +89,7 @@ public class MovieManager implements MovieDao{
         });
     }
 
+
     /**
      * 解析Json至movie
      * @param movieList 主线程传近来的movieList
@@ -97,24 +97,25 @@ public class MovieManager implements MovieDao{
      * @param handler 用于和主线程进行通信
      */
     @Override
-    public void parseMovieJson(List<Movie> movieList,String movieJson,Handler handler) {
+    public void parseMovieJson(List<ComingSoonMovie> movieList, String movieJson, Handler handler) {
         if (!movieList.isEmpty()) {
             movieList.remove(movieList.size() - 1);
-            if (movieList.get(movieList.size()-1).getName() == MyMovieAdapter.SET_PROGRESS_BAR)
+            if (movieList.get(movieList.size()-1).getTitle() == MyMovieAdapter.SET_PROGRESS_BAR)
                 movieList.remove(movieList.size() - 1);
         }
         if(movieJson.isEmpty()) {//若Json返回数据为kong,则不进行解析
-            Movie movie = new Movie();
-            movie.setName(MyMovieAdapter.SET_NO_MORE_TEXT);
-            movieList.add(movie);
+            ComingSoonMovie csMovie = new ComingSoonMovie();
+            csMovie.setTitle(MyComingSoonMovieAdapter.SET_NO_MORE_TEXT);
+            movieList.add(csMovie);
             handler.sendEmptyMessage(NO_MORE);
             return;
         }
         Gson gson = new Gson();
-        ArrayList<Movie> movieTempList = gson.fromJson(movieJson,new TypeToken<ArrayList<Movie>>(){}.getType());
-        for(Movie movie: movieTempList) {
-            movieList.add(movie);
+         ArrayList<ComingSoonMovie> movieTempList = gson.fromJson(movieJson,new TypeToken<ArrayList<ComingSoonMovie>>(){}.getType());
+        for(ComingSoonMovie csMovie: movieTempList) {
+            movieList.add(csMovie);
         }
+        Log.e("tag",movieList.size()+"");
         handler.sendEmptyMessage(PARSE_COMPLETE);
     }
 }

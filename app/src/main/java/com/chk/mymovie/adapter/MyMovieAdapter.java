@@ -2,7 +2,6 @@ package com.chk.mymovie.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.chk.mymovie.MovieDetailActivity;
+import com.chk.mymovie.MovieDetailActivityBefore;
 import com.chk.mymovie.R;
+import com.chk.mymovie.application.MyApplication;
 import com.chk.mymovie.bean.Movie;
 import com.chk.mymovie.myinterface.OnLoadMoreListener;
 import com.chk.mymovie.myview.MyMovieRecyclerView;
@@ -30,10 +30,8 @@ public class MyMovieAdapter extends RecyclerView.Adapter{
 
     public static final String SET_PROGRESS_BAR = "SHOW_PROGRESS_BAR";
     public static final String SET_NO_MORE_TEXT = "SHOW_NO_MORE_TEXT:";
-    String genymotionIp = "http://192.168.56.1:8080";
-    String nativeIp = "http://10.0.2.2:8080";
-    String outerIp = "http://18.8.6.109:8080";
-    String chooseIp = nativeIp;
+
+    String chooseIp = MyApplication.getContext().getString(R.string.choosedIp);
 
     private final int VIEW_PROG = 0;
     private final int VIEW_ITEM = 1;
@@ -97,7 +95,7 @@ public class MyMovieAdapter extends RecyclerView.Adapter{
             view.setOnClickListener(new View.OnClickListener() {   //设置整个view的点击事件
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, MovieDetailActivity.class);
+                    Intent intent = new Intent(context, MovieDetailActivityBefore.class);
                     intent.putExtra("movie",movie);
 //                    intent.putExtra("title","movie:"+movie.getName()+"  id:"+movie.getId());
                     context.startActivity(intent);

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chk.mymovie.R;
+import com.chk.mymovie.application.MyApplication;
 import com.chk.mymovie.bean.Movie;
 
 import java.util.List;
@@ -21,9 +22,7 @@ import java.util.List;
  */
 
 public class MyPicItemAdapter extends ArrayAdapter<Movie>{
-    String genymotionIp = "http://192.168.56.1:8080";
-    String nativeIp = "http://10.0.2.2:8080";
-    String chooseIp = nativeIp;
+    String choosedIp = MyApplication.getContext().getString(R.string.choosedIp);
 
     int resourceId;
 
@@ -52,7 +51,7 @@ public class MyPicItemAdapter extends ArrayAdapter<Movie>{
         }
         if(movie.getPath() != null && !movie.getPath().equals("")) {
             Glide.with(getContext())
-                    .load(chooseIp + "/MyMovieService/GetPicServlet?path="+movie.getPath())
+                    .load(choosedIp + "/MyMovieService/GetPicServlet?path="+movie.getPath())
                     .into(viewHolder.picImage);
             Log.e("AG","执行");
             viewHolder.picText.setText(movie.getName());

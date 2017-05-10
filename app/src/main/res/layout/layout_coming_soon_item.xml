@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/csMoiveLayout"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <ImageView
+        android:id="@+id/csMoiveImage"
+        android:src="@drawable/shape"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/csMovieTitle"
+            android:text="text"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp" />
+        <TextView
+            android:id="@+id/csMovieYear"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="2017"
+            android:padding="5dp"/>
+        <TextView
+            android:id="@+id/collect_count"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="很多人想看"
+            android:padding="5dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
