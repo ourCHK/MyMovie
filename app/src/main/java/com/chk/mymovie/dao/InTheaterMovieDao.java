@@ -18,7 +18,18 @@ public interface InTheaterMovieDao {
      * @param from 开始查询位置
      * @param count 要查询的数量
      */
-    public void getMovieJson(int from, int count, Handler handler);
+    void getMovieJson(int from, int count, Handler handler);
 
-    public void parseMovieJson(List<InTheaterMovie> itMovieList, String movieJson, Handler handler);
+    void parseMovieJson(List<InTheaterMovie> itMovieList, String movieJson, Handler handler);
+
+    /**
+     * 采用rows 和 columns 采用 , 符号分隔开
+     * @param userId
+     * @param movieId
+     * @param rows
+     * @param columns
+     * @param handler
+     * @return
+     */
+    void buyTicket(int userId,int movieId,String rows,String columns, Handler handler);
 }

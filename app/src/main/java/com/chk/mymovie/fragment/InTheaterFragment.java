@@ -1,6 +1,7 @@
 package com.chk.mymovie.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.chk.mymovie.BuyActivity;
+import com.chk.mymovie.MovieDetailActivity;
 import com.chk.mymovie.R;
 import com.chk.mymovie.adapter.MyInTheaterMovieAdapter;
 import com.chk.mymovie.adapter.MyMovieAdapter;
@@ -42,6 +45,7 @@ public class InTheaterFragment extends Fragment {
     MyMovieRecyclerView recyclerView;
     int from;
     int count;
+    public final static int MOVIE_IN_THEATER = 1;
 
     public void init() {
         movieList = new ArrayList<>();
@@ -66,20 +70,26 @@ public class InTheaterFragment extends Fragment {
         });
         recyclerView.setAdapter(movieAdapter);
 
+        /*点击item*/
         movieAdapter.setOnItemClickListener(new MyInTheaterMovieAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, String data) {
                 Toast.makeText(MyApplication.getContext(), "you click the item and the id is:"+data, Toast.LENGTH_SHORT).show();
-
-
+                Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                intent.putExtra("movieType",MOVIE_IN_THEATER);
+                intent.putExtra("movieId",Integer.parseInt(data));
+                getActivity().startActivity(intent);
             }
         });
 
+        /*购买电影票*/
         movieAdapter.setOnButtonClickListener(new MyInTheaterMovieAdapter.OnRecyclerViewButtonClickListener() {
             @Override
             public void onButtonClick(View view, String data) {
                 Toast.makeText(MyApplication.getContext(), "you click button and the id is:"+data, Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(getActivity(), BuyActivity.class);
+                intent.putExtra("data",data);
+                getActivity().startActivity(intent);
 
             }
         });

@@ -8,15 +8,14 @@ import com.chk.mymovie.R;
 import com.chk.mymovie.adapter.MyComingSoonMovieAdapter;
 import com.chk.mymovie.adapter.MyMovieAdapter;
 import com.chk.mymovie.application.MyApplication;
-import com.chk.mymovie.bean.ComingSoonMovie;
 import com.chk.mymovie.bean.InTheaterMovie;
-import com.chk.mymovie.dao.ComingSoonMovieDao;
 import com.chk.mymovie.dao.InTheaterMovieDao;
 import com.chk.mymovie.tools.OKHttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +32,8 @@ public class InTheaterMovieManager implements InTheaterMovieDao{
 
     String chooseIp = MyApplication.getContext().getString(R.string.choosedIp);
     String type = MyApplication.getContext().getString(R.string.InTheaterMovie);   //用于区别提交至服务端电影类型,比如正在上映和即将上映等等
+    String typeMoviePrice = "MoviePrice";
+    String typeChoosedMovieSeats = "ChoosedSeats";
 
     /**
      * 网络错误
@@ -58,6 +59,21 @@ public class InTheaterMovieManager implements InTheaterMovieDao{
      * 没有更多数据
      */
     public static final int NO_MORE = 4;
+
+    /**
+     * 获取电影价格完成
+     */
+    public static final int GET_MOVIE_PRICE_COMPLETE = 5;
+
+    /**
+     * 获取已选择座位完成
+     */
+    public static final int GET_CHOOSED_MOVIE_SEATS_JSON_COMPLETE = 6;
+
+    /**
+     * 买票
+     */
+    public static final int BUY_TICKET = 7;
 
     /**
      * 获取movie的Json
@@ -119,5 +135,79 @@ public class InTheaterMovieManager implements InTheaterMovieDao{
         }
         Log.e("tag",movieList.size()+"");
         handler.sendEmptyMessage(PARSE_JSON_COMPLETE);
+    }
+
+    public void getMoviePrice(int movieId,final Handler handler) {
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("movieId",movieId+"");
+        hashMap.put("type",typeMoviePrice);
+        OKHttpUtil.getRequest(chooseIp + "/MyMovieService/GetJsonServlet", hashMap, new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                handler.sendEmptyMessage(NETWORK_ERROR);
+                Log.getStackTraceString(e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                Message message = new Message();
+                message.what = GET_MOVIE_PRICE_COMPLETE;
+                message.obj = result;
+                handler.sendMessage(message);
+            }
+        });
+
+    }
+
+    public void getChoosedMovieSeatJson(int movieId,String create_date,final Handler handler) {
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("movieId",movieId+"");
+        hashMap.put("create_date",create_date);
+        hashMap.put("type",typeChoosedMovieSeats);
+        OKHttpUtil.getRequest(chooseIp + "/MyMovieService/GetJsonServlet", hashMap, new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                handler.sendEmptyMessage(NETWORK_ERROR);
+                Log.getStackTraceString(e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                Message message = new Message();
+                message.what = GET_CHOOSED_MOVIE_SEATS_JSON_COMPLETE;
+                message.obj = result;
+                handler.sendMessage(message);
+            }
+        });
+    }
+
+    @Override
+    public void buyTicket(int userId, int movieId, String rows, String columns, final Handler handler) {
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("userId",userId+"");
+        hashMap.put("movieId",movieId+"");
+        hashMap.put("rows",rows);
+        hashMap.put("columns",columns);
+        OKHttpUtil.getRequest(chooseIp + "/MyMovieService/BuyTicketServlet", hashMap, new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                handler.sendEmptyMessage(NETWORK_ERROR);
+                Log.getStackTraceString(e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                Message message = new Message();
+                message.what = BUY_TICKET;
+                message.obj = result;
+                handler.sendMessage(message);
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 package com.chk.mymovie.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.chk.mymovie.MovieDetailActivity;
 import com.chk.mymovie.R;
 import com.chk.mymovie.adapter.MyComingSoonMovieAdapter;
 import com.chk.mymovie.adapter.MyMovieAdapter;
+import com.chk.mymovie.application.MyApplication;
 import com.chk.mymovie.bean.ComingSoonMovie;
 import com.chk.mymovie.impl.ComingSoonMovieManager;
 import com.chk.mymovie.impl.MovieManager;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 
 public class ComingSoonFragment extends Fragment {
-
+    public final static int MOVIE_COMING_SOON = 2;
     Handler handler;
     String movieJson;
     List<ComingSoonMovie> movieList;
@@ -59,6 +62,16 @@ public class ComingSoonFragment extends Fragment {
                         handler.sendEmptyMessage(MovieManager.GET_MORE);
                     }
                 },2000);
+            }
+        });
+        movieAdapter.setOnItemClickListener(new MyComingSoonMovieAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, String data) {
+                Toast.makeText(MyApplication.getContext(), "you click the item and the id is:"+data, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                intent.putExtra("movieType",MOVIE_COMING_SOON);
+                intent.putExtra("movieId",Integer.parseInt(data));
+                getActivity().startActivity(intent);
             }
         });
         recyclerView.setAdapter(movieAdapter);

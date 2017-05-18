@@ -3,7 +3,8 @@
     android:orientation="horizontal"
     android:id="@+id/csMoiveLayout"
     android:layout_width="match_parent"
-    android:layout_height="120dp">
+    android:layout_height="120dp"
+    android:background="@drawable/click_effect">
 
     <ImageView
         android:id="@+id/csMoiveImage"

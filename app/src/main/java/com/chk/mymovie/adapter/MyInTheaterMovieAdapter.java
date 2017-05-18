@@ -29,6 +29,7 @@ import java.util.List;
 public class MyInTheaterMovieAdapter extends RecyclerView.Adapter{
     public static final String SET_PROGRESS_BAR = "SHOW_PROGRESS_BAR";
     public static final String SET_NO_MORE_TEXT = "SHOW_NO_MORE_TEXT:";
+
     private final int VIEW_PROG = 0;
     private final int VIEW_ITEM = 1;
     private final int VIEW_TEXT = 2;
@@ -76,7 +77,7 @@ public class MyInTheaterMovieAdapter extends RecyclerView.Adapter{
         if (holder instanceof InTheaterMovieHolder) {
             InTheaterMovie itMovie = movieList.get(position);
             ((InTheaterMovieHolder) holder).itMovieLayout.setTag(itMovie.getId()+"");
-            ((InTheaterMovieHolder) holder).buyTicket.setTag(itMovie.getId()+"");
+            ((InTheaterMovieHolder) holder).buyTicket.setTag(itMovie.getId()+" "+itMovie.getTitle());   //使用空格分隔开
             Glide.with(context)
                     .load(choosedIp + "/MyMovieService/GetPicServlet?path="+itMovie.getImage_path())
                     .into(((InTheaterMovieHolder) holder).itMovieImage);
