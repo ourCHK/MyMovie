@@ -7,6 +7,7 @@
 
     <string name="OnShowMovie">OnShow</string>
     <string name="ComingSoonMovie">ComingSoon</string>
+    <string name="InTheaterMovie">InTheater</string>
     <integer name="Onshow1">1</integer>
     <integer name="Onshow2">2</integer>
 </resources>

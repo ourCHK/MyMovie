@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,11 +80,11 @@ public class ContentFragment extends Fragment {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
-                    case ComingSoonMovieManager.GET_COMPLETE:
+                    case ComingSoonMovieManager.GET_JSON_COMPLETE:
                         csMovieJson = (String) msg.obj;
                         csMovieManager.parseMovieJson(csMovieList, csMovieJson, handler);
                         break;
-                    case ComingSoonMovieManager.PARSE_COMPLETE:
+                    case ComingSoonMovieManager.PARSE_JSON_COMPLETE:
                         csMovieAdapter.notifyDataSetChanged();
                         csMovieAdapter.setLoaded();
                         from += count;

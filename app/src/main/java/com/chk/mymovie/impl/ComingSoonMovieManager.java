@@ -30,7 +30,7 @@ import okhttp3.Response;
 public class ComingSoonMovieManager implements ComingSoonMovieDao{
 
     String chooseIp = MyApplication.getContext().getString(R.string.choosedIp);
-    String type = MyApplication.getContext().getString(R.string.ComingSoonMovie);   //用于区别是获取电影的类型,比如正在上映和未上映等等
+    String type = MyApplication.getContext().getString(R.string.ComingSoonMovie);   //用于区别提交至服务端电影类型,比如正在上映和即将上映等等
 
     /**
      * 网络错误
@@ -40,12 +40,12 @@ public class ComingSoonMovieManager implements ComingSoonMovieDao{
     /**
      * 获取Json完成
      */
-    public static final int GET_COMPLETE = 1;
+    public static final int GET_JSON_COMPLETE = 1;
 
     /**
      * 解析Json完成
      */
-    public static final int PARSE_COMPLETE = 2;
+    public static final int PARSE_JSON_COMPLETE = 2;
 
     /**
      * 获取跟多数据
@@ -82,7 +82,7 @@ public class ComingSoonMovieManager implements ComingSoonMovieDao{
             public void onResponse(Call call, Response response) throws IOException {
                 String result = response.body().string();
                 Message message = new Message();
-                message.what = GET_COMPLETE;
+                message.what = GET_JSON_COMPLETE;
                 message.obj = result;
                 handler.sendMessage(message);
             }
@@ -116,6 +116,6 @@ public class ComingSoonMovieManager implements ComingSoonMovieDao{
             movieList.add(csMovie);
         }
         Log.e("tag",movieList.size()+"");
-        handler.sendEmptyMessage(PARSE_COMPLETE);
+        handler.sendEmptyMessage(PARSE_JSON_COMPLETE);
     }
 }

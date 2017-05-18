@@ -84,8 +84,6 @@ public class MyComingSoonMovieAdapter extends RecyclerView.Adapter implements Vi
         } else if (holder instanceof ProgressBarViewHolder) {
             ((ProgressBarViewHolder) holder).progressBar.setIndeterminate(true);
         }
-
-
     }
 
     @Override
