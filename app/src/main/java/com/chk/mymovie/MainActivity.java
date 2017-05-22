@@ -4,17 +4,17 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.chk.mymovie.fragment.ContentFragment;
+import com.chk.mymovie.fragment.SearchFragment;
 import com.chk.mymovie.fragment.MovieFragment;
 import com.chk.mymovie.fragment.PersonalCenterFragment;
 
@@ -22,8 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
     public final static String TAG = "MainActivity";
     private final static String MOVIE_TAG = "MovieFragment";
-    private final static String CONTENT_TAG = "ContentFragment";
+    private final static String CONTENT_TAG = "SearchFragment";
     private final static String PERSONAL_CENTER_TAG = "PersonalCenterFragment";
+
 
     AppBarLayout appBarLayout;
     Toolbar toolbar;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager fm;
     FragmentTransaction ft;
     MovieFragment movieFragment;
-    ContentFragment contentFragment;
+    SearchFragment contentFragment;
     PersonalCenterFragment personalCenterFragment;
     int currPage;   //标记当前页面
 
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
         movieFragment = new MovieFragment();
-        contentFragment = new ContentFragment();
+        contentFragment = new SearchFragment();
         personalCenterFragment = new PersonalCenterFragment();
         ft.add(R.id.frameLayout2,personalCenterFragment,PERSONAL_CENTER_TAG);
         ft.add(R.id.frameLayout2,contentFragment,CONTENT_TAG);
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     private void showFragment(String fragmentTAG) {
         FragmentTransaction ft = fm.beginTransaction();
         MovieFragment movieFragment = (MovieFragment) fm.findFragmentByTag(MOVIE_TAG);
-        ContentFragment contentFragment = (ContentFragment) fm.findFragmentByTag(CONTENT_TAG);
+        SearchFragment contentFragment = (SearchFragment) fm.findFragmentByTag(CONTENT_TAG);
         PersonalCenterFragment personalCenterFragment = (PersonalCenterFragment) fm.findFragmentByTag(PERSONAL_CENTER_TAG);
         if (movieFragment != null)
             ft.hide(movieFragment);

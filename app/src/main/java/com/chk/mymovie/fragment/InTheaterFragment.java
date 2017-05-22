@@ -7,12 +7,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.chk.mymovie.BuyActivity;
@@ -36,6 +39,9 @@ import java.util.List;
 
 public class InTheaterFragment extends Fragment {
 
+
+    SwipeRefreshLayout swipeRefreshLayout;
+    AlertDialog alertDialog;
     Handler handler;
     String movieJson;
     List<InTheaterMovie> movieList;
@@ -48,6 +54,7 @@ public class InTheaterFragment extends Fragment {
     public final static int MOVIE_IN_THEATER = 1;
 
     public void init() {
+        swipeRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.swipeRefreshLayout);
         movieList = new ArrayList<>();
         recyclerView = (MyMovieRecyclerView) getActivity().findViewById(R.id.inTheaterMovieRecyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
@@ -119,6 +126,13 @@ public class InTheaterFragment extends Fragment {
                         movieAdapter.notifyDataSetChanged();
                         movieAdapter.setLoaded();
                         from += count;
+                        if (alertDialog.isShowing()) {
+                            alertDialog.dismiss();
+                        }
+                        if (swipeRefreshLayout.isRefreshing()) {
+                            swipeRefreshLayout.setRefreshing(false);
+                            Toast.makeText(getContext(), "刷新完成", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case InTheaterMovieManager.GET_MORE: //获取更多数据
                         movieManager.getMovieJson(from,count,handler);
@@ -133,6 +147,19 @@ public class InTheaterFragment extends Fragment {
             }
         };
         init();
+        alertDialog = new AlertDialog.Builder(getContext())
+                .setTitle("电影加载中...")
+                .setView(new ProgressBar(getContext()))
+                .create();
+        alertDialog.show();
+        startGet();
+    }
+
+    public void refresh() {
+        from = 0;
+        count = 10;
+        movieList.clear();
+        movieAdapter.setReload();
         startGet();
     }
 

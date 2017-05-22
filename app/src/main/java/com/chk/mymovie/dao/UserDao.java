@@ -24,5 +24,5 @@ public interface UserDao {
 	
 	public void deleteUser();
 	
-	public void updateUser();
+	public void updateUser(String name,String sex,String account,String password,String phone,Handler handler);
 }

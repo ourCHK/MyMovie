@@ -29,16 +29,12 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_scrollFlags="scroll|enterAlways|snap">
-                <SearchView
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:iconifiedByDefault="false"
-                android:background="@drawable/shape"
-                android:queryHint="查询内容"
-                android:focusable="false"
-                />
+                <com.chk.mymovie.myview.MyTextView
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:text="Welcome To My Movie"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
@@ -63,24 +59,24 @@
             android:id="@+id/rb1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" android:drawableTop="@mipmap/ic_launcher"
+            android:layout_weight="1" android:drawableTop="@mipmap/movie"
             style="@style/style_RadioButton"
-            android:text="浏览"/>
+            android:text="影片浏览"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@mipmap/ic_launcher"
-            style="@style/style_RadioButton" android:text="发现"
+            android:drawableTop="@mipmap/search1"
+            style="@style/style_RadioButton" android:text="搜索"
             android:id="@+id/rb2"/>
         <RadioButton
             android:id="@+id/rb3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@mipmap/ic_launcher"
+            android:drawableTop="@mipmap/user"
             style="@style/style_RadioButton"
-            android:text="我"/>
+            android:text="个人中心"/>
     </RadioGroup>
 
 </LinearLayout>

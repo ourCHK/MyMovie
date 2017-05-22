@@ -161,10 +161,10 @@ public class InTheaterMovieManager implements InTheaterMovieDao{
 
     }
 
-    public void getChoosedMovieSeatJson(int movieId,String create_date,final Handler handler) {
+    public void getChoosedMovieSeatJson(int movieId,String ticket_date,final Handler handler) {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("movieId",movieId+"");
-        hashMap.put("create_date",create_date);
+        hashMap.put("ticket_date",ticket_date);
         hashMap.put("type",typeChoosedMovieSeats);
         OKHttpUtil.getRequest(chooseIp + "/MyMovieService/GetJsonServlet", hashMap, new Callback() {
 

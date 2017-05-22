@@ -1,16 +1,14 @@
 package com.chk.mymovie;
 
-import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.system.Os;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -19,7 +17,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.chk.mymovie.bean.User;
 import com.chk.mymovie.impl.UserManager;
+import com.google.gson.Gson;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -58,8 +58,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText password;
     ProgressDialog pd;
     Handler handler;
+    User user;
     String accountContent;
     String passwordContent;
+    String nameContent;
+    String phoneContent;
 
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -81,6 +84,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Toast.makeText(LoginActivity.this,"网络错误！",Toast.LENGTH_SHORT).show();
                         break;
                     case SUCCESS_LOGIN:
+                        jsonToUser((String) msg.obj);
                         storeLogin();   //界面结束时存储信息
                         postDelayed(new Runnable() {
                             @Override
@@ -91,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 startActivity(intentLogin);
                                 finish();
                             }
-                        },0);
+                        },1000);
                         break;
                     case FAILURE_LOGIN:
                         postDelayed(new Runnable() {
@@ -114,7 +118,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void init() {
 
-        pref = getPreferences(Context.MODE_PRIVATE);
+        pref = getSharedPreferences("MyMovie",Context.MODE_PRIVATE);
         editor = pref.edit();
 
         openReg = (Button) findViewById(R.id.openReg);
@@ -186,27 +190,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * 存储登录信息
      */
     public void storeLogin() {
-
-        if(isRemember) {
-            editor.putString("account",accountContent);
-            editor.putString("password",passwordContent);
-        } else {
-            editor.clear();
-        }
+        editor.putInt("id",user.getId());
+        editor.putString("name",user.getName());
+        editor.putString("phone",user.getPhone());
+        editor.putString("account",user.getAccount());
+        editor.putString("password",user.getPassword());
+        editor.putString("sex",user.getSex());
         editor.putBoolean("isRemember",isRemember);
         editor.commit();
+        Log.e("LoginActivioty",user.getAccount()+" "+user.getName()+" "+user.getPhone()+" "+user.getPassword());
     }
 
     /**
      * 恢复登录信息
      */
     public void restoreLogin() {
-        accountContent = pref.getString("account","");
-        passwordContent = pref.getString("password","");
         isRemember = pref.getBoolean("isRemember",false);
+        if (isRemember) {
+            accountContent = pref.getString("account","");
+            passwordContent = pref.getString("password","");
+            account.setText(accountContent);
+            password.setText(passwordContent);
+            remember.setChecked(isRemember);
+        }
 
-        account.setText(accountContent);
-        password.setText(passwordContent);
-        remember.setChecked(isRemember);
+    }
+
+    public void jsonToUser(String json) {
+        user = new User();
+        Gson gson = new Gson();
+        user = gson.fromJson(json,User.class);
     }
 }

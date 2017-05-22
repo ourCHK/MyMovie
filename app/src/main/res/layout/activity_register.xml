@@ -8,17 +8,24 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background7"
     tools:context="com.chk.mymovie.RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <TableLayout
+            android:layout_marginTop="80dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:stretchColumns="1">
 
+            <TextView
+                android:textSize="30sp"
+                android:text="欢迎注册"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
             <TableRow>
                 <TextView
                     android:text="昵       称:"

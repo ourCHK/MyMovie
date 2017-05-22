@@ -1,48 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:id="@+id/csMoiveLayout"
+    android:id="@+id/itMoiveLayout"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:background="@drawable/click_effect">
+    android:background="@drawable/click_effect"
+    >
 
     <ImageView
-        android:id="@+id/csMoiveImage"
+        android:id="@+id/itMoiveImage"
         android:src="@drawable/shape"
         android:layout_width="100dp"
         android:layout_height="100dp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="100dp"
         android:orientation="vertical"
-        android:gravity="center"
+        android:paddingLeft="20dp"
         >
 
         <TextView
-            android:id="@+id/csMovieTitle"
-            android:text="text"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_weight="1"
+            android:id="@+id/itMovieTitle"
+            android:text="Title"
+            android:gravity="center_vertical"
+            android:layout_weight="1.5"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            />
+            android:textSize="18sp"
+            android:textStyle="bold"/>
         <TextView
-            android:id="@+id/csMovieYear"
+            android:id="@+id/itMovieYear"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="2017"
             android:padding="5dp"/>
         <TextView
-            android:id="@+id/collect_count"
+            android:id="@+id/itMovieAverage"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="很多人想看"
+            android:text="0.0分"
             android:padding="5dp"/>
-
     </LinearLayout>
 
 </LinearLayout>

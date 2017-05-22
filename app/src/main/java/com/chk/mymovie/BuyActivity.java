@@ -1,6 +1,7 @@
 package com.chk.mymovie;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +21,7 @@ import com.chk.mymovie.bean.MovieOrder;
 import com.chk.mymovie.impl.InTheaterMovieManager;
 import com.chk.mymovie.myview.MyChooseSeatView;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.sql.Date;
@@ -30,6 +32,8 @@ public class BuyActivity extends AppCompatActivity {
 
     String chooseaIp = MyApplication.getContext().getString(R.string.choosedIp);
 
+    SharedPreferences prefs;
+
     int rows = 6;
     int columns = 8;
     int[][] seats = new int[rows][columns];
@@ -37,6 +41,7 @@ public class BuyActivity extends AppCompatActivity {
     Button pay;
     MyChooseSeatView chooseSeatView;
     TextView movieTitleTextView;
+    TextView ticketPrice;
 
     String[] data;
     String movieId;
@@ -54,11 +59,13 @@ public class BuyActivity extends AppCompatActivity {
     RelativeLayout buyLayout;
 
     public void init() {
+        prefs = getSharedPreferences("MyMovie",MODE_PRIVATE);
         Intent intent = getIntent();
         data = intent.getStringExtra("data").split(" ");
         movieId = data[0];
         movieTitle = data[1];
 
+        ticketPrice = (TextView) findViewById(R.id.ticketPrice);
         appBarText = (TextView) findViewById(R.id.appBarText);
         textBuy = (LinearLayout) findViewById(R.id.textBuy);
         buyLayout = (RelativeLayout) findViewById(R.id.buyLayout);
@@ -84,7 +91,7 @@ public class BuyActivity extends AppCompatActivity {
                             choosedColumns += j+",";
                         }
                     }
-                inTheaterMovieManager.buyTicket(222,Integer.parseInt(movieId),choosedRows,choosedColumns,handlerChooseSeatView);
+                inTheaterMovieManager.buyTicket(prefs.getInt("id",-1),Integer.parseInt(movieId),choosedRows,choosedColumns,handlerChooseSeatView);
             }
         });
     }
@@ -101,9 +108,12 @@ public class BuyActivity extends AppCompatActivity {
                 switch (msg.what) {
                     case InTheaterMovieManager.GET_MOVIE_PRICE_COMPLETE:
                         price = Integer.parseInt((String) msg.obj) ;
+                        ticketPrice.append(price+"元");
                         inTheaterMovieManager.getChoosedMovieSeatJson(Integer.parseInt(movieId),new Date(System.currentTimeMillis()).toString(),this);
                         return;
                     case InTheaterMovieManager.GET_CHOOSED_MOVIE_SEATS_JSON_COMPLETE:
+                        Log.e("BuyActivity","开始解析");
+                        Log.e("BuyActivity","");
                         movieOrderJson = (String) msg.obj;
                         this.postDelayed(new Runnable() {
                             @Override
@@ -179,8 +189,9 @@ public class BuyActivity extends AppCompatActivity {
      * 讲json解析成已选择的座位
      */
     public void parseSelectedSeats() {
+        Log.e("BuyActivity","parseSelectSeats"+movieOrderJson);
         List<MovieOrder> movieOrderList;
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setDateFormat("MM-yyyy-dd").create();
         Log.e("BuyActivity",movieOrderJson);
         movieOrderList = gson.fromJson(movieOrderJson,new TypeToken<ArrayList<MovieOrder>>(){}.getType());
         if (movieOrderList != null) {

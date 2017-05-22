@@ -14,15 +14,32 @@
         android:orientation="vertical"
         android:fitsSystemWindows="true">
 
-        <TextView
-            android:text="HAVE A NICE DAY!\nCHK"
-            android:textColor="#00ff00"
-            android:gravity="center"
-            android:textSize="35sp"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="#0fffff"
-            android:fitsSystemWindows="true"/>
+            android:layout_height="120dp">
+            <TextView
+                android:text="HAVE A NICE DAY!"
+                android:textColor="#00ff00"
+                android:gravity="center"
+                android:textSize="35sp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#0fffff"
+                android:fitsSystemWindows="true"/>
+            <TextView
+                android:id="@+id/myName"
+                android:textColor="#00ff00"
+                android:textSize="40sp"
+                android:gravity="center"
+                android:background="#0fffff"
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
 
         <TableLayout
             android:layout_marginTop="20dp"
@@ -30,10 +47,56 @@
             android:layout_height="wrap_content"
             android:background="#FCFCFC">
             <TableRow
+                android:id="@+id/modifyUserName"
                 android:clickable="true"
                 android:background="@drawable/click_effect">
                 <TextView
+                    android:id="@+id/userName"
                     android:text="昵称"
+                    android:textSize="16sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="10dp"
+                    />
+                <TextView
+                    android:text=">"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/modifyUserPhone"
+                android:clickable="true"
+                android:background="@drawable/click_effect">
+                <TextView
+                    android:id="@+id/userPhone"
+                    android:text="手机号"
+                    android:textSize="16sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="10dp"
+                    />
+                <TextView
+                    android:text=">"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/modifyUserPassword"
+                android:clickable="true"
+                android:background="@drawable/click_effect">
+                <TextView
+                    android:id="@+id/modifyPassword"
+                    android:text="修改密码"
                     android:textSize="16sp"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -58,6 +121,7 @@
             android:divider="@drawable/diver"
             android:showDividers="middle">
             <TableRow
+                android:id="@+id/myOrder"
                 android:clickable="true"
                 android:background="@drawable/click_effect">
                 <TextView
@@ -77,28 +141,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                 />
+
+
             </TableRow>
 
-            <TableRow
-                android:clickable="true"
-                android:background="@drawable/click_effect">
-                <TextView
-                    android:text="购物车"
-                    android:textSize="16sp"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="10dp"/>
-
-                <TextView
-                    android:text=">"
-                    android:textSize="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-            </TableRow>
         </TableLayout>
 
         <TableLayout
@@ -106,6 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FCFCFC"
+            android:visibility="gone"
             >
             <TableRow
                 android:clickable="true"
@@ -134,6 +181,7 @@
             android:layout_height="wrap_content"
             android:background="#FCFCFC">
             <TableRow
+                android:id="@+id/loginOut"
                 android:clickable="true"
                 android:background="@drawable/click_effect">
                 <TextView

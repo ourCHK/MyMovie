@@ -1,6 +1,7 @@
 package com.chk.mymovie.bean;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by chk on 17-5-14.
@@ -13,7 +14,10 @@ public class MovieOrder {
     int movieId;
     int choosed_row;
     int choosed_column;
-    Date create_date;
+    Date ticket_date;
+    Timestamp create_date;
+
+
 
     public int getUserId() {
         return userId;
@@ -39,10 +43,21 @@ public class MovieOrder {
     public void setChoosed_column(int choosed_column) {
         this.choosed_column = choosed_column;
     }
-    public Date getCreate_date() {
-        return create_date;
-    }
-    public void setCreate_date(Date create_date) {
+
+    public void setCreate_date(Timestamp create_date) {
         this.create_date = create_date;
     }
+
+    public Timestamp getCreate_date() {
+        return create_date;
+    }
+
+    public Date getTicket_date() {
+        return ticket_date;
+    }
+
+    public void setTicket_date(Date ticket_date) {
+        this.ticket_date = ticket_date;
+    }
+
 }

@@ -25,12 +25,12 @@ public class RegisterActivity extends AppCompatActivity {
     public static final int NETWORK_ERROR = 0;
 
     /**
-     * 登录成功
+     * 注册成功
      */
     public static final int  SUCCESS_REGISTER = 1;
 
     /**
-     * 登录失败
+     * 注册失败
      */
     public static final int FAILURE_REGISTER = 2;
 
@@ -45,6 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
     Button register;
     String accountContent;
     String passwordContent;
+    String nameContent;
+    String phoneContent;
     Handler handler;
 
 
@@ -71,6 +73,8 @@ public class RegisterActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Intent intent = new Intent();
+                                intent.putExtra("name",nameContent);
+                                intent.putExtra("phone",phoneContent);
                                 intent.putExtra("account",accountContent);
                                 intent.putExtra("password",passwordContent);
                                 setResult(LoginActivity.REGISTER_SUCCESS,intent);
@@ -115,12 +119,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void register() {
-        String nameContent = name.getText().toString();
+        nameContent = name.getText().toString();
         String sexContent = chooseWhat.getText().toString();
         accountContent = account.getText().toString();
         passwordContent = password.getText().toString();
         String passwordReContent = passwordRe.getText().toString();
-        String phoneContent = phone.getText().toString();
+        phoneContent = phone.getText().toString();
         if (nameContent.isEmpty() ||
                 sexContent.isEmpty() ||
                 accountContent.isEmpty() ||
@@ -136,7 +140,5 @@ public class RegisterActivity extends AppCompatActivity {
         }
         UserManager userManager = new UserManager();
         userManager.registerUser(nameContent,sexContent,accountContent,passwordContent,phoneContent,handler);
-
-
     }
 }

@@ -67,6 +67,15 @@
         android:id="@+id/buyLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:id="@+id/ticketPrice"
+            android:textSize="20sp"
+            android:text="票价:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <Button
             android:id="@+id/pay"
             android:text="选座购买"

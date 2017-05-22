@@ -30,7 +30,7 @@ import java.util.List;
  * Created by chk on 17-3-13.
  */
 
-public class ContentFragment extends Fragment {
+public class SearchFragmentBefore extends Fragment {
 
     Handler handler;
     ComingSoonMovieManager csMovieManager;

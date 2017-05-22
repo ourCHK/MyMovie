@@ -1,7 +1,9 @@
 package com.chk.mymovie.bean;
 
 public class User {
+	int id;
 	public String name;
+	public String sex;
 	public String account;
 	public String password;
 	public String phone;
@@ -30,6 +32,20 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
-	
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }

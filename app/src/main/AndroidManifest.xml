@@ -23,12 +23,14 @@
         <activity android:name=".TestGsonActivity" />
         <activity android:name=".PersonalCenter" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".MovieDetailActivity"/>
+        <activity android:name=".MovieDetailActivity" />
         <activity
             android:name=".MovieDetailActivityBefore"
             android:theme="@style/MovieDetailTheme" />
         <activity android:name=".BuyActivity" />
-        <activity android:name=".BuyResultActivity"></activity>
+        <activity android:name=".BuyResultActivity" />
+        <activity android:name=".ModifyActivity" />
+        <activity android:name=".OrderActivity"></activity>
     </application>
 
 </manifest>

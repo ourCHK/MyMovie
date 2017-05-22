@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background6">
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_marginTop="10dp"
+        android:queryHint="请在此输入电影名称或演员"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape"/>
+
+    <TextView
+        android:id="@+id/searchResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="搜索结果如下"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:visibility="invisible"/>
+
+    <com.chk.mymovie.myview.MyMovieRecyclerView
+        android:layout_marginTop="10dp"
+        android:id="@+id/searchRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.chk.mymovie.myview.MyMovieRecyclerView>
+
+</LinearLayout>

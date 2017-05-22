@@ -3,6 +3,7 @@ package com.chk.mymovie.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
@@ -43,5 +44,11 @@ public class MyMovieTypeAdapter extends FragmentStatePagerAdapter {
                 return "即将上映";
         }
         return null;
+    }
+
+    @Override
+    public void setPrimaryItem(ViewGroup container, int position, Object object) {
+
+        super.setPrimaryItem(container, position, object);
     }
 }

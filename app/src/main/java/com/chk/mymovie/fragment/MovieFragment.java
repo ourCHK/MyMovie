@@ -33,7 +33,6 @@ import java.util.List;
 public class MovieFragment extends Fragment {
 
     SwipeRefreshLayout swipeRefreshLayout;
-    ViewPager movieTypeViewPager;
     MyMovieTypeAdapter movieTypeAdapter;
 
 //    MyMovieRecyclerView myMovieRecyclerView;
@@ -41,7 +40,9 @@ public class MovieFragment extends Fragment {
 //    MyMovieAdapter myMovieAdapter;
 //    MovieManager movieManager;
 
-
+    ViewPager movieTypeViewPager;
+    InTheaterFragment inTheaterFragment;
+    ComingSoonFragment comingSoonFragment;
 
     Handler handler;
     String movieJson;
@@ -63,6 +64,16 @@ public class MovieFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+
+                }
+            }
+        };
+
 
 //        handler = new Handler() {
 //            @Override
@@ -94,6 +105,8 @@ public class MovieFragment extends Fragment {
 //            }
 //        };
         init();
+//        swipeRefreshLayout.setRefreshing(true);
+//        inTheaterFragment.startGet();
 //        startGet();
     }
 
@@ -105,7 +118,7 @@ public class MovieFragment extends Fragment {
 
     public void init() {
 //        movieManager = new MovieManager();
-        movieList = new ArrayList<>();
+//        movieList = new ArrayList<>();
         from = 0;
         count = 5;
 
@@ -121,16 +134,26 @@ public class MovieFragment extends Fragment {
                     @Override
                     public void run() {
 //                        refresh();
+                        if (movieTypeViewPager.getCurrentItem() == 0) {
+                            inTheaterFragment.refresh();
+                        } else  {
+                            comingSoonFragment.refresh();
+                        }
                     }
-                },4000);
+                },1000);
             }
         });
 
+
+
+
         //新添加的在这里
+        inTheaterFragment = new InTheaterFragment();
+        comingSoonFragment = new ComingSoonFragment();
         movieTypeViewPager = (ViewPager) getActivity().findViewById(R.id.movieTypeViewPager);
         ArrayList<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new InTheaterFragment());
-        fragmentList.add(new ComingSoonFragment());
+        fragmentList.add(inTheaterFragment);
+        fragmentList.add(comingSoonFragment);
         movieTypeAdapter = new MyMovieTypeAdapter(getChildFragmentManager(),fragmentList);
         movieTypeViewPager.setAdapter(movieTypeAdapter);
 
